@@ -1,0 +1,152 @@
+ async login(){
+
+    if(this.email == "" || this.senha == ""){
+      const toast = await this.toast.create({
+        message: 'Preencha todos os campos!',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+    }
+
+    return new Promise(resolve =>{
+      
+      let dados = {
+        email : this.email, 
+        senha : this.senha,
+        requisicao : 'login',
+      };
+
+      this.provider.dadosApi(dados,'api_login.php').subscribe(async data => {
+
+        var alert = data['msg'];
+        if(data['pageadm']) {
+          this.storage.setItem('session_storage', data['resultsin']);
+          if(data['success']){
+            this.router.navigate([ '/admhome']);
+          }
+          const toast = await this.toast.create({
+            message: 'Logado com Sucesso!!',
+            duration: 1000,
+            color: 'success'
+          });
+          toast.present();
+          this.email = "";
+          this.senha = "";
+          console.log(data);
+        }else if(data['pagemor']){
+          this.storage.setItem('session_storage', data['resultmor']);
+          if(data['success']){
+            this.router.navigate([ '/userhome']);
+          }
+          const toast = await this.toast.create({
+            message: 'Logado com Sucesso!!',
+            duration: 1000,
+            color: 'success'
+          });
+          toast.present();
+          this.email = "";
+          this.senha = "";
+          console.log(data);
+        }else{
+          const toast = await this.toast.create({
+            message: alert,
+            duration: 2000,
+            color: 'danger'
+          });
+          toast.present();
+          console.log(data)
+        }
+
+
+
+        
+
+
+
+
+        
+        
+
+         
+                 
+      });
+        
+    }); 
+
+  }
+
+
+
+
+
+
+
+
+
+
+<?php
+
+include_once('conexao.php');
+
+$postjson = json_decode(file_get_contents('php://input'), true);
+
+/*Login*/ 
+
+if($postjson['requisicao'] == 'login'){
+         
+    if($query = $pdo->query("SELECT * from sindicos where email_sin = '$postjson[email]' and senha_sin = '$postjson[senha]'")){
+        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+      
+        for ($i=0; $i < count($res); $i++) { 
+            foreach ($res[$i] as $key => $value) {
+            }
+           $dadosin = array(
+            'sindico_id' => $res[$i]['sindico_id'],
+            'nome' => $res[$i]['nome'],
+            'email_sin' => $res[$i]['email_sin'],
+            'senha_sin' => $res[$i]['senha_sin'],
+            'senha_crip' => $res[$i]['senha_crip']
+            );
+       }  
+      
+            if(count($res) > 0){
+                    $resultsin = json_encode(array('success'=>true, 'result'=>$dadosin, 'pageadm'=>true));
+      
+                }else{
+                    $resultsin = json_encode(array('success'=>false, 'msg'=>'Dados Incorretos!'));
+                    echo "Dados inválidos";
+      
+                }
+                  echo $resultsin;
+                  
+}else if($query = $pdo->query("SELECT * from condominos where email_cond = '$postjson[email]' and senha_cond = '$postjson[senha]'")){
+        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+       for ($i=0; $i < count($res); $i++) { 
+          foreach ($res[$i] as $key => $value) {
+          }
+         $dados = array(
+            'condomino_id' => $res[$i]['condomino_id'],
+            'nome' => $res[$i]['nome'],
+            'email_cond' => $res[$i]['email_cond'],
+            'senha_cond' => $res[$i]['senha_cond'],
+            'senha_crip' => $res[$i]['senha_crip']
+            
+         );
+    
+        }
+    
+            if(count($res) > 0){
+                    $resultmor = json_encode(array('success'=>true, 'result'=>$dados, 'pagemor'=>true));
+    
+                }else{
+                    $resultmor = json_encode(array('success'=>false, 'msg'=>'Dados Incorretos!'));
+                    echo "Dados inválidos";
+                }
+                echo $resultmor;
+    
+    }
+
+}

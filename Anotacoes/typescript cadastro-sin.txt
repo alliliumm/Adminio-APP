@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="login()">
+      <ion-button>
+        <ion-icon name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Cadastrar Usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <div class="flex-center">
+        <ion-card-title> </ion-card-title>
+      </div>
+      <ion-item>
+        <ion-label position="floating"> Nome completo </ion-label>
+        <ion-input [(ngModel)]="nome"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tipo de síndico:</ion-label>
+        <ion-select placeholder="Selecione" [(ngModel)]="bloco">
+          <ion-select-option value="Bloco A">A</ion-select-option>
+          <ion-select-option value="Bloco B">B</ion-select-option>
+          <ion-select-option value="Bloco C">C</ion-select-option>
+          <ion-select-option value="Bloco D">D</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating"> Apartamento </ion-label>
+        <ion-input type="number"[(ngModel)]="apartamento"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating"> Usuario </ion-label>
+        <ion-input type="text"[(ngModel)]="usuario"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating"> Senha </ion-label>
+        <ion-input [(ngModel)]="senha"> </ion-input>
+      </ion-item>
+
+      <ion-button *ngIf="!id" color="success" expand="block" (click)="cadastrar()">
+        Cadastrar
+      </ion-button>
+
+      <ion-button *ngIf="id" color="success" expand="block" (click)="editar()">
+        Editar
+      </ion-button>
+    </ion-card-header>
+  </ion-card>
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/services/post';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+
+@Component({
+  selector: 'app-cadastro-sin',
+  templateUrl: './cadastro-sin.page.html',
+  styleUrls: ['./cadastro-sin.page.scss'],
+})
+export class CadastroSinPage implements OnInit {
+  nome: string = "";
+  bloco: string="";
+  apartamento: number;
+  usuario: string = "";
+  senha: string = "";
+  morador_id: string = "";
+  senha_crip: string  = "";
+
+
+  constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post, public toastController: ToastController) { }
+
+  ngOnInit() {
+    this.actRouter.params.subscribe((data:any)=>{
+      this.morador_id = data.morador_id;
+      this.nome = data.nome;
+      this.usuario = data.usuario;
+      this.senha = data.senha;
+      this.senha_crip = data.senha_crip;
+      this.apartamento = data.apartamento;
+      this.bloco = data.bloco;
+    });
+}
+
+async mensagemSalvar() {
+  const toast = await this.toastController.create({
+    message: 'Salvo com Sucesso!!',
+    duration: 1000
+  });
+  toast.present();
+}
+
+login(){
+  this.router.navigate(['/login']);
+}
+
+cadastrar(){
+  return new Promise(resolve => {
+    
+    let dados = {
+      requisicao : 'add',
+      nome : this.nome, 
+      usuario : this.usuario,
+      senha : this.senha,
+      senha_crip : this.senha_crip,
+      apartamento : this.apartamento,
+      bloco : this.bloco
+      };
+
+      this.provider.dadosApi(dados, 'api_user.php').subscribe(data => {
+        this.router.navigate(['/usuarios']);
+        this.mensagemSalvar();
+      });
+      this.login()
+  });
+
+}
+
+userpag(){
+  this.router.navigate(['/usuarios']);
+}
+
+
+editar(){
+  return new Promise(resolve => {
+    let dados = {
+      requisicao : 'editar',
+      nome : this.nome, 
+      usuario : this.usuario, 
+      senha : this.senha,
+      senha_crip : this.senha_crip,
+      apartamento : this.apartamento, 
+      bloco : this.bloco, 
+      morador_id : this.morador_id
+      };
+
+      this.provider.dadosApi(dados, 'api_adm.php').subscribe(data => {
+        this.router.navigate(['/usuarios']);
+        this.mensagemSalvar();
+      });
+      this.userpag()
+  });
+}
+
+}

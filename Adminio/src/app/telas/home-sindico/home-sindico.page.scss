@@ -1,0 +1,60 @@
+ion-menu-button {
+    color: var(--ion-color-primary);
+  }
+  
+  #container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  #container strong {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  
+  #container p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #152D35;
+    margin: 0;
+  }
+  
+  #container a {
+    text-decoration: none;
+  }
+  
+  ion-content ion-toolbar {
+    --background: rgb(235, 112, 112);
+  }
+  
+  
+  .titulo-home{
+    font-size:15px;
+    color:rgb(105, 101, 148);
+  }
+  
+  #acao1sind{
+    background-color: rgb(158, 36, 158); color: #FFF; width: 500px; padding: 40px 40px 40px 40px; margin: 100px 100px 100px 100px;
+  }
+  #acaosind2{
+    background: rgb(158, 36, 158); color:#FFF;width:500px; padding: 40px 40px 40px 40px;margin: 100px 100px 100px 100px;
+  }
+
+  #admbutton1 {
+    bottom: 50%;  
+}
+
+
+#cardmenu {
+  margin: 80px;
+  background-color: #152D35;
+}
+
+
+#icon1{
+  font-size: 54px;
+}

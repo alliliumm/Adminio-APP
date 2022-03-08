@@ -1,0 +1,8 @@
+{
+  "name": "P.I",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

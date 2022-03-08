@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="login()">
+      <ion-button>
+        <ion-icon name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Registrar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-slides>
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <div class="flex-center">
+            <ion-card-title>Cadastrar Síndico</ion-card-title>
+          </div>
+          <br>
+          <ion-item>
+            <ion-label position="floating" maxlength="100"> Nome completo </ion-label>
+            <ion-input [(ngModel)]="nome"> </ion-input>
+          </ion-item>
+
+            <ion-item>
+              <ion-label>Tipo de síndico:</ion-label>
+              <ion-select placeholder="Selecione" [(ngModel)]="tipo_sindico">
+                <ion-select-option value="p1"> </ion-select-option>
+                <ion-select-option value="Pessoa física condômina">Pessoa física condômina</ion-select-option>
+                <ion-select-option value="Pessoa jurídica condômina">Pessoa jurídica condômina</ion-select-option>
+                <ion-select-option value="Pessoa física não condômina">Pessoa física não condômina</ion-select-option>
+                <ion-select-option value="Pessoa jurídica nâo condômina">Pessoa jurídica nâo condômina</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item >
+              <ion-label>Condomínio:</ion-label>
+              <ion-select placeholder="Selecione" (ionChange)="segmentChanged($event)" name="condominioo" >
+                <ion-select-option *ngFor="let condominioo of condominioo" value="{{condominioo.condominioo_id}}">{{condominioo.nomecond}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          <ion-item>
+            <ion-label position="floating" maxlength="60"> Email </ion-label>
+            <ion-input type="email" [(ngModel)]="email_sin"> </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating" maxlength="15"> Senha </ion-label>
+            <ion-input type="password" [(ngModel)]="senha_sin"> </ion-input>
+          </ion-item>
+
+          
+          <ion-button *ngIf="!sindico_id" color="success" expand="block" (click)="cadastrarsin()">
+            Cadastrar
+          </ion-button>
+
+          <ion-button *ngIf="sindico_id" color="success" expand="block" (click)="editarsin()">
+            Editar
+          </ion-button>
+
+          <ion-button
+          size="full"
+          fill="clear"
+          expand="block"
+          padding
+          color="success"
+          (click)="cadastrocond()"
+          >Registrar condomínio</ion-button
+        >
+
+        <div class="alertar">
+          <p>Se não encontrou o seu condomínio, registre o seu condomínio</p>
+        </div>
+
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

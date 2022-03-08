@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="userhome()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Assembléia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-row class="success padding-lateral">
+  <ion-input placeholder="Buscar" [(ngModel)]="assunto" type="search" (input)="carregar()"></ion-input>
+
+  <ion-buttons (click)="carregar()">
+    <ion-button>
+      <ion-icon slot="end" name="search"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-row>
+
+
+  <ion-content class="cinza-claro" class="ion-padding">
+    <ion-list>
+        <ion-item *ngFor="let assunto of pautas">
+          <ion-label (click)="mostrar(assunto.pauta_id, assunto.assunto, assunto.conteudo)">
+            {{assunto.assunto}}</ion-label>
+        </ion-item>
+    </ion-list>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Carregando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais dados">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

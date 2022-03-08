@@ -1,0 +1,50 @@
+<ion-content>
+  <ion-img src="/assets/image/logo.png"></ion-img>
+  <div class="flex-center">
+    <ion-card>
+      <ion-card-header>
+        <div class="flex-center">
+          <ion-card-title>Bem-vindo!</ion-card-title>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" [(ngModel)]="email"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Senha</ion-label>
+            <ion-input type="password" [(ngModel)]="senha"></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-button expand="block" padding color="success" (click)="login()"
+          >Entrar</ion-button>
+          
+        <ion-button
+          size="full"
+          fill="clear"
+          expand="block"
+          padding
+          color="success"
+          (click)="addCond()"
+          >Registre-se síndico/condomínio</ion-button
+        >
+      </ion-card-content>
+      <div class="alertar">
+        <p>Condômino, se não é usuário, contate o síndico.</p>
+      </div>
+    </ion-card>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <div class="footer">
+    <p>Grupo Admínio - 2022</p>
+  </div>
+</ion-footer>
+
+

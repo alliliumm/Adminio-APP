@@ -1,0 +1,177 @@
+CREATE DATABASE adminbd;
+
+CREATE TABLE adminbd.morador (
+    morador_id int (10) AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(50) not null,
+    usuario varchar (40) not null,
+    senha char(10) not null,
+    senha_crip char(22) not null,
+    apartamento char(10) not null,
+    bloco varchar (10) null
+);
+
+CREATE TABLE adminbd.sindico (
+    id int (10) AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(50) not null,
+    usuario varchar (40) not null,
+    senha char(10) not null,
+    senha_crip char(22) not null,
+    condominio varchar(200) not null,
+    administradora varchar(300) not null,
+);
+
+CREATE TABLE adminbd.historico (
+    id_msg int (10) AUTO_INCREMENT PRIMARY KEY,
+    mensagem varchar(400),
+    dia date DEFAULT current_timestamp,
+    hora time DEFAULT current_timestamp
+);
+
+CREATE TABLE adminbd.pautas(
+    pauta_id int (10) AUTO_INCREMENT PRIMARY KEY,
+    assunto varchar (100) not null,
+    conteudo varchar (3000) not null,
+    cont_sim int,
+    cont_nao int
+);
+
+CREATE TABLE adminbd.comentarios(
+    coment_id int (10) AUTO_INCREMENT PRIMARY KEY,
+    usercom varchar (40) not null,
+    comentario varchar (300) not null
+);
+
+
+INSERT INTO adminbd.sindico (nome,usuario,senha,senha_crip) VALUES
+('Nicklas Bismark', 'Bismark','123478','12347899887432'),
+('Alessandra Teles', 'Ale','123478','12347899898012'),
+('Wuatson Andrade', 'Wuatson','123478','12347899090432'),
+('Tiemerson Carvalho', 'Tiemerson','123478','12348888871432');
+
+INSERT INTO adminbd.morador (nome,usuario,senha,senha_crip,apartamento,bloco) VALUES
+('Nicklas Bismark', 'Nick','123478','12347777778432','101','Bloco A'),
+('Alessandra Teles', 'Teles','123478','12348888888012','102','Bloco B'),
+('Wuatson Andrade', 'Andrade','123478','12399999992432','103','Bloco C'),
+('Adan Arturo', 'Arturo','123478','12349101017432','104','Bloco C'),
+('Tiemerson Carvalho', 'Carvalho','123478','12333333374432','202','Bloco D');
+
+
+select* from morador;
+select* from sindico;
+select* from pautas;
+select* from historico;
+
+
+
+drop database adminbd;
+drop table morador;
+drop table sindico;
+drop table pautas;
+drop table historico;
+
+
+
+
+
+
+
+
+
+
+
+
+$query = $pdo->query("SELECT * from sindico and morador where usuario = '$postjson[usuario]' and senha = '$postjson[senha]'");
+
+
+
+
+
+
+logins
+
+if(this.usuario == "" || this.senha == ""){
+      const toast = await this.toast.create({
+        message: 'Preencha todos os campos!',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+    }
+
+    if (this.selectuser == "sindico") {
+      this.sindico = [];
+      let dados = {
+        requisicao : 'login_adm',
+        usuario : this.usuario, 
+        senha : this.senha
+      };
+
+        this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
+        var alert = data['msg'];
+        if(data['success']) {
+          this.storage.setItem('session_storage', data['result']);
+          if(data['pageadm']){
+            this.router.navigate([ '/admhome']);
+          }else if(data['pagemor']){
+            this.router.navigate([ '/userhome']);
+          }
+          const toast = await this.toast.create({
+            message: 'Logado com Sucesso!!',
+            duration: 1000,
+            color: 'success'
+          });
+          toast.present();
+          this.usuario = "";
+          this.senha = "";
+          console.log(data);
+        }else{
+          const toast = await this.toast.create({
+            message: alert,
+            duration: 2000,
+            color: 'danger'
+          });
+          toast.present();
+        }
+         
+                 
+        });
+        
+    } 
+
+    if(this.selectuser == "condomino"){
+      this.morador = [];
+      let dados = {
+        requisicao : 'login_user',
+        usuario : this.usuario, 
+        senha : this.senha
+      };
+
+        this.provider.dadosApi(dados, 'api_user.php').subscribe(async data => {
+        var alert = data['msg'];
+        if(data['success']) {
+          this.storage.setItem('session_storage', data['result']);
+          this.router.navigate([ '/userhome']);
+          const toast = await this.toast.create({
+            message: 'Logado com Sucesso!!',
+            duration: 1000,
+            color: 'success'
+          });
+          toast.present();
+          this.usuario = "";
+          this.senha = "";
+          console.log(data);
+        }else{
+          const toast = await this.toast.create({
+            message: alert,
+            duration: 2000,
+            color: 'danger'
+          });
+          toast.present();
+        }
+         
+                 
+        });
+        
+    }
+  }

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="admhome()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pop-up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card class="cinza-claro">
+  <ion-card-header>
+    <ion-item>
+      <ion-label position="floating">
+        Mensagem:
+      </ion-label>
+      <ion-textarea auto-grow="true" [(ngModel)]="mensagem"></ion-textarea>
+    </ion-item>
+  </ion-card-header>
+</ion-card>
+<ion-button expand="block" color="success" (click)= "mensagempop()">Enviar</ion-button>
+</ion-content>
+
+
+
+

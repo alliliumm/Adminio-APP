@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="login()">
+      <ion-button>
+        <ion-icon name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Registrar Condomínio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-slides>
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <br>
+          <div class="flex-center">
+          <ion-card-title>Dados</ion-card-title>
+          </div>
+          <br>
+          <ion-item>
+            <ion-label position="floating" maxlength="100" required> Nome completo </ion-label>
+            <ion-input [(ngModel)]="nomecond"> </ion-input>
+          </ion-item>
+
+          <br>
+
+        <ion-card-subtitle>Endereço</ion-card-subtitle>
+
+          <ion-item>
+            <ion-label position="floating" required maxlength="150"> Rua </ion-label>
+            <ion-input [(ngModel)]="rua"> </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating" required maxlength="100"> Bairro </ion-label>
+            <ion-input type="text" [(ngModel)]="bairro"> </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating" required maxlength="10"> Número </ion-label>
+            <ion-input [(ngModel)]="numero"> </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating" maxlength="300"> Complemento </ion-label>
+            <ion-input [(ngModel)]="complemento"> </ion-input>
+          </ion-item>
+
+          <ion-card-subtitle>Contatos</ion-card-subtitle>
+          <ion-item>
+            <ion-label position="floating" required maxlength="21"> Telefone </ion-label>
+            <ion-input [(ngModel)]="telefone"> </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating" maxlength="60"> Email</ion-label>
+            <ion-input type="email" [(ngModel)]="email"> </ion-input>
+          </ion-item>
+
+          <ion-button *ngIf="!condominioo_id" color="success" expand="block" (click)="cadastrarcon()">
+            Cadastrar
+          </ion-button>
+
+          <ion-button *ngIf="condominioo_id" color="success" expand="block" (click)="editarcon()">
+            Editar
+          </ion-button>
+
+          <ion-button
+          size="full"
+          fill="clear"
+          expand="block"
+          padding
+          color="success"
+          (click)="cadastrosin()"
+          >Registrar síndico</ion-button
+        >
+
+        <div class="alertar">
+          <p>Se já fez o cadastro do seu condomínio, poderá registrar um novo síndico diretamente.</p>
+        </div>
+
+
+        </ion-card-header>
+      </ion-card>
+
+    </ion-slide>
+  </ion-slides>
+
+
+</ion-content>
