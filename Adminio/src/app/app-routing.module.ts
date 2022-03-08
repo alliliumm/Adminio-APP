@@ -11,10 +11,10 @@ const routes: Routes = [
     path: 'folder',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
-  {
+  /*{
     path: 'add-usuario',
     loadChildren: () => import('./add-usuario/add-usuario.module').then( m => m.AddUsuarioPageModule)
-  },
+  },*/
   {
     path: 'mostrar-usuario',
     loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
@@ -27,10 +27,10 @@ const routes: Routes = [
     path: 'mostrar-usuario/:morador_id/:nome/:usuario/:senha/:apartamento/:bloco',
       loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
   },
-  {
+  /*{
     path: 'add-usuario/:morador_id/:nome/:usuario/:senha/:apartamento/:bloco',
       loadChildren: () => import('./add-usuario/add-usuario.module').then( m => m.AddUsuarioPageModule)
-  },
+  },*/
   {
     path: 'mostrar-pautas/:pauta_id/:assunto/:conteudo',
       loadChildren: () => import('./mostrar-pautas/mostrar-pautas.module').then( m => m.MostrarPautasPageModule)
@@ -82,13 +82,34 @@ const routes: Routes = [
   {
     path: 'cadastro-cond',
     loadChildren: () => import('./telas/cadastro-cond/cadastro-cond.module').then( m => m.CadastroCondPageModule)
-  },  {
+  },
+  {
     path: 'home-sindico',
     loadChildren: () => import('./telas/home-sindico/home-sindico.module').then( m => m.HomeSindicoPageModule)
   },
   {
     path: 'home-condomino',
     loadChildren: () => import('./telas/home-condomino/home-condomino.module').then( m => m.HomeCondominoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-sindico',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-sindico/mostrar-pautas-sindico.module').then( m => m.MostrarPautasSindicoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-condomino',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-condomino/mostrar-pautas-condomino.module').then( m => m.MostrarPautasCondominoPageModule)
+  },
+  {
+    path: 'pautas-home-sindico',
+    loadChildren: () => import('./telas/pautas/pautas-home-sindico/pautas-home-sindico.module').then( m => m.PautasHomeSindicoPageModule)
+  },
+  {
+    path: 'pautas-home-condomino',
+    loadChildren: () => import('./telas/pautas/pautas-home-condomino/pautas-home-condomino.module').then( m => m.PautasHomeCondominoPageModule)
+  },
+  {
+    path: 'criacao-pautas-sindico',
+    loadChildren: () => import('./telas/pautas/criacao-pautas-sindico/criacao-pautas-sindico.module').then( m => m.CriacaoPautasSindicoPageModule)
   }
 
 

@@ -57,7 +57,7 @@ export class LoginsPage implements OnInit {
         if(data['pageadm']) {
           this.storage.setItem('session_storage', data['result']);
           if(data['success']){
-            this.router.navigate([ '/admhome']);
+            this.router.navigate([ '/home-sindico']);
           }
           const toast = await this.toast.create({
             message: 'Logado com Sucesso!!',
@@ -71,7 +71,7 @@ export class LoginsPage implements OnInit {
         }else if(data['pagemor']){
           this.storage.setItem('session_storage', data['result']);
           if(data['success']){
-            this.router.navigate([ '/userhome']);
+            this.router.navigate([ '/home-condomino']);
           }
           const toast = await this.toast.create({
             message: 'Logado com Sucesso!!',
