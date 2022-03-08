@@ -36,10 +36,6 @@ const routes: Routes = [
       loadChildren: () => import('./mostrar-pautas/mostrar-pautas.module').then( m => m.MostrarPautasPageModule)
   },
   {
-    path: 'admhome',
-    loadChildren: () => import('./admhome/admhome.module').then( m => m.AdmhomePageModule)
-  },
-  {
     path: 'popupform',
     loadChildren: () => import('./popupform/popupform.module').then( m => m.PopupformPageModule)
   },
