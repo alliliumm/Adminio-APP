@@ -11,11 +11,52 @@ import { Component, OnInit } from '@angular/core';
 export class CriacaoPautasSindicoPage implements OnInit {
   assunto: string = "";
   conteudo: string = "";
+  pauta_id: string = "";
+  status: string = "";
+
+  sindico: string = "";
+  senha: string = "";
+
+  sindicos: any = [];
+
+  sindico_id: string = "";
+  nome: string = "";
+
+  sindico_fk: number = 0;
+
 
   constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post, public toast: ToastController) { }
 
   ngOnInit() {
+
+    this.actRouter.params.subscribe((data:any)=>{
+      this.pauta_id = data.pauta_id;
+      this.assunto = data.assunto;
+      this.conteudo = data.conteudo;
+      this.status = data.status;
+
+      this.sindico_id = data.sindico_id;
+      this.nome = data.nome;
+
+      
+
+    });
+
+    return new Promise(resolve=> {
+      let dados = {
+        requisicao :'listarsindico'
+      };
+      this.provider.dadosApi(dados,'api_listar.php').subscribe(data => {
+         console.log(data);
+        this.sindicos= data;
+      });
+    });
    
+  }
+
+  segmentChanged(sindicos:any){
+    this.sindico_fk = sindicos.detail.value;
+    console.log(sindicos)
   }
 
   admhome(){
@@ -50,7 +91,10 @@ export class CriacaoPautasSindicoPage implements OnInit {
       let dados = {
         requisicao : 'newpaut',
         assunto : this.assunto, 
-        conteudo : this.conteudo
+        conteudo : this.conteudo,
+        status : this.status,
+        pautas_sindico_id : this.sindico_fk,
+
         };
 
         this.provider.dadosApi(dados, 'api_adm.php').subscribe(data => {

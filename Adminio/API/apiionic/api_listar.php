@@ -5,11 +5,25 @@ include_once('conexao.php');
 $postjson = json_decode(file_get_contents('php://input'), true);
 
 
-// mostra lista 
+// mostra lista de condomínio
 
 if($postjson['requisicao'] == 'listarcond'){
 
   $query = $pdo->query("SELECT * from condominioo");
+
+    while($d = $query->fetch(PDO::FETCH_ASSOC)){
+      $data[] = $d;
+    }
+    
+  exit(json_encode($data));
+
+}
+
+// mostra lista de sindico
+
+if($postjson['requisicao'] == 'listarsindico'){
+
+  $query = $pdo->query("SELECT * from sindicos");
 
     while($d = $query->fetch(PDO::FETCH_ASSOC)){
       $data[] = $d;

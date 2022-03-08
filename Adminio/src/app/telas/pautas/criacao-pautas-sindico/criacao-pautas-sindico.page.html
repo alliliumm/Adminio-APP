@@ -25,6 +25,29 @@
     <ion-textarea auto-grow="true" [(ngModel)]="conteudo"></ion-textarea>
   </ion-item>
 
+  <ion-item>
+    <ion-label>Status:</ion-label>
+    <ion-select placeholder="Selecione" [(ngModel)]="status">
+      <ion-select-option value="p1"> </ion-select-option>
+      <ion-select-option value="aberto">Aberto</ion-select-option>
+      <ion-select-option value="fechado">Fechado</ion-select-option>
+      <ion-select-option value="Proprietário Ocupante">Edição</ion-select-option>
+      <ion-select-option value="Ocupante">Avaliação</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item >
+    <ion-label>Síndico:</ion-label>
+    <ion-select placeholder="Selecione" (ionChange)="segmentChanged($event)" name="sindico">
+      <ion-select-option *ngFor="let sindicos of sindicos" value="{{sindicos.sindico_id}}">{{sindicos.nome}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Senha de síndico:</ion-label>
+    <ion-input type="password" [(ngModel)]="senha"></ion-input>
+  </ion-item>
+
   <div>
     <ion-button id="admbutton1" expand="block" color="success" (click)="enviar()">
       Enviar

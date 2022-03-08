@@ -32,17 +32,26 @@ export class LoginsPage implements OnInit {
   
   async login(){
 
-    if(this.email == "" || this.senha == ""){
+    if(this.email == ""){
       const toast = await this.toast.create({
-        message: 'Preencha todos os campos!',
-        duration: 2000,
+        message: 'Escreva o seu email',
+        duration: 3000,
+        color: 'success'
+      });
+      toast.present();
+      return;
+    }
+
+    if(this.senha == ""){
+      const toast = await this.toast.create({
+        message: 'Escreva a sua senha',
+        duration: 3000,
         color: 'warning'
       });
       toast.present();
       return;
+    }
       
-    }else{
-
     return new Promise(resolve =>{
       
       let dados = {
@@ -98,7 +107,7 @@ export class LoginsPage implements OnInit {
         
     }); 
 
-    }
+    
   }
 
 }

@@ -68,7 +68,7 @@ CREATE TABLE adminbd.pautas(
     pauta_id int (10) AUTO_INCREMENT PRIMARY KEY,
     assunto varchar (100) not null,
     conteudo varchar (3000) not null,
-    status varchar(100),
+    status varchar(100)not null,
     pautas_sindico_id int(10)not null,
     FOREIGN KEY (pautas_sindico_id) REFERENCES sindicos(sindico_id)
 );
