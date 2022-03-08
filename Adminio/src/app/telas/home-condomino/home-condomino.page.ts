@@ -17,8 +17,8 @@ export class HomeCondominoPage implements OnInit {
   ngOnInit() {
   }
 
-  assembleia(){
-    this.router.navigate(['/assembleia']);
+  pautas(){
+    this.router.navigate(['/pautas-home-condomino']);
   }
   usermsg(){
     this.router.navigate(['/usermsg']);
