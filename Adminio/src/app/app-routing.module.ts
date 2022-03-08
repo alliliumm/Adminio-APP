@@ -48,10 +48,6 @@ const routes: Routes = [
     loadChildren: () => import('./userhome/userhome.module').then( m => m.UserhomePageModule)
   },  
   {
-    path: 'assembleiaadm',
-    loadChildren: () => import('./assembleiaadm/assembleiaadm.module').then( m => m.AssembleiaadmPageModule)
-  },
-  {
     path: 'usermsg',
     loadChildren: () => import('./usermsg/usermsg.module').then( m => m.UsermsgPageModule)
   },
