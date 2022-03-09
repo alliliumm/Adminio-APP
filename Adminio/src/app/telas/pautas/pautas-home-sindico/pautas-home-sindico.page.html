@@ -11,25 +11,17 @@
 
 
 <ion-row class="success padding-lateral">
-  <ion-input placeholder="Buscar" [(ngModel)]="assunto" type="search" (input)="carregar()"></ion-input>
+  <ion-input placeholder="Buscar" [(ngModel)]="assunto" type="search" (input)="carregarabertos()"></ion-input>
 
-  <ion-buttons (click)="carregar()">
+  <ion-buttons (click)="carregarabertos()">
     <ion-button>
       <ion-icon slot="end" name="search"></ion-icon>
     </ion-button>
   </ion-buttons>
 </ion-row>
 
-<ion-item>
-  <ion-label>Status:</ion-label>
-  <ion-select placeholder="Selecione" [(ngModel)]="status">
-    <ion-select-option value="p1"(click)="carregar()">Todos</ion-select-option>
-    <ion-select-option value="aberto"(click)="carregarabertos()">Aberto</ion-select-option>
-    <ion-select-option value="fechado"(click)="carregarfechados()">Fechado</ion-select-option>
-  </ion-select>
-</ion-item>
-
-    <ion-button (click)="resultados()">Resultados</ion-button>
+    <ion-button size="small" (click)="resultados()">Resultados</ion-button>
+    <ion-button size="small" (click)="pautfechadas()">Pautas fechadas</ion-button>
 
   <ion-content class="cinza-claro" class="ion-padding">
 

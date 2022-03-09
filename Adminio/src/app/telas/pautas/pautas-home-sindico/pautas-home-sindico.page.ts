@@ -30,7 +30,7 @@ export class PautasHomeSindicoPage implements OnInit {
   ionViewWillEnter(){
     this.pautas = [];
     this.start = 0;
-    this.carregar();
+    this.carregarabertos();
   }
 
   homesind(){
@@ -38,6 +38,10 @@ export class PautasHomeSindicoPage implements OnInit {
   }
 
   resultados(){
+    
+  }
+
+  pautfechadas(){
     
   }
 
@@ -49,33 +53,6 @@ export class PautasHomeSindicoPage implements OnInit {
     this.router.navigate(['/edicao-status-sindico/' + pauta_id + '/' + assunto + '/' + status + '/' + pautas_sindico_id]);
   }
 
-  carregar(){
-    return new Promise(resolve => {
-      this.pautas = [];
-      let dados = {
-        requisicao : 'listarpaut',
-        assunto : this.assunto,
-        limit : this.limit,
-        start : this.start
-      };
-
-        this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
-
-        if(data['result'] == '0') {
-          this.ionViewWillEnter();
-        }else{
-          for(let assunto of data['result']){
-            this.pautas.push(assunto);
-            
-          }
-        }
-         
-         resolve(true);
-         
-        });
-    });
-    
-  }
 
   carregarabertos(){
     return new Promise(resolve => {
@@ -176,7 +153,7 @@ loadData(event) {
   this.start += this.limit;
 
   setTimeout(() => {
-    this.carregar().then(()=>{ 
+    this.carregarabertos().then(()=>{ 
       event.target.complete();
      });
    
