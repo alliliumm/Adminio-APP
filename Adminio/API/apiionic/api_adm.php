@@ -95,49 +95,49 @@ else if($postjson['requisicao'] == 'newpaut'){
         }
 */
 
-else if($postjson['requisicao'] == 'newpaut'){
+/*Criar Pautas*/
+else if ($postjson['requisicao'] == 'newpaut') {
 
-  if($query = $pdo->query("SELECT * from sindicos where sindico_id = '$postjson[pautas_sindico_id]' and senha_sin = '$postjson[senha]'")){
+  if ($query = $pdo->query("SELECT * from sindicos where sindico_id = '$postjson[pautas_sindico_id]' and senha_sin = '$postjson[senha]'")) {
     $res = $query->fetchAll(PDO::FETCH_ASSOC);
-  
-    for ($i=0; $i < count($res); $i++) { 
-        foreach ($res[$i] as $key => $value) {
-        }
-       $dados = array(
+
+    for ($i = 0; $i < count($res); $i++) {
+      foreach ($res[$i] as $key => $value) {
+      }
+      $dados = array(
         'sindico_id' => $res[$i]['sindico_id'],
         'senha_sin' => $res[$i]['senha_sin']
-        );
-   }  
-  
-        if(count($res) > 0){
-                $result = json_encode(array('success'=>true, 'result'=>$dados, 'pageadm'=>true));
-                echo $result;
-  
-        }else{
-          $result = json_encode(array('success'=>false, 'msg'=>'Dados Incorretos!'));
-          echo "Dados inválidos";
-        }
+      );
+    }
 
-    $query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id");
-        
+    if (count($res) > 0) {
+
+      $result = json_encode(array('success' => true, 'result' => $dados, 'pagepaut' => true));
+      echo $result;
+
+      $query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id");
+
       $query->bindValue(":assunto", $postjson['assunto']);
       $query->bindValue(":conteudo", $postjson['conteudo']);
       $query->bindValue(":status", $postjson['status']);
       $query->bindValue(":pautas_sindico_id", $postjson['pautas_sindico_id']);
       $query->execute();
-        
+
       $pautid = $pdo->lastInsertId();
-             
-        
-      if($query){
-      $result = json_encode(array('success'=>true, 'pauta_id'=>$pautid));
-        
-      }else{
-      $result = json_encode(array('success'=>false));
-          
+
+
+      if ($query) {
+        $result = json_encode(array('success' => true, 'pauta_id' => $pautid));
+      } else {
+        $result = json_encode(array('success' => false));
       }
       echo $result;
-      }
+
+    } else {
+      $result = json_encode(array('success' => false, 'msg' => 'Dados Incorretos!'));
+      echo "Dados inválidos";
+    }
+  }
 }
 
 
