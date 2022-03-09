@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { Post } from 'src/services/post';
 import { Component, OnInit } from '@angular/core';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
@@ -16,7 +16,7 @@ export class LoginsPage implements OnInit {
   senha : string = "";
 
 
-  constructor(private actRouter: ActivatedRoute, private storage: NativeStorage, private router:Router, private provider: Post, public toast: ToastController, public alertController: AlertController) { }
+  constructor(private actRouter: ActivatedRoute, private storage: NativeStorage, private router:Router, private provider: Post, public toast: ToastController, public alertController: AlertController, private menu: MenuController) { this.menu.enable(false, 'custom');}
 
   ngOnInit() {
     this.actRouter.params.subscribe((data:any)=>{

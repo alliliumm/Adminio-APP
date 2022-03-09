@@ -1,3 +1,4 @@
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { ToastController } from '@ionic/angular';
 import { Post } from 'src/services/post';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,7 +26,7 @@ export class CriacaoPautasSindicoPage implements OnInit {
   sindico_fk: number = 0;
 
 
-  constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post, public toast: ToastController) { }
+  constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post, public toast: ToastController, private storage: NativeStorage) { }
 
   ngOnInit() {
 
@@ -94,11 +95,32 @@ export class CriacaoPautasSindicoPage implements OnInit {
         conteudo : this.conteudo,
         status : this.status,
         pautas_sindico_id : this.sindico_fk,
+        senha: this.senha
 
         };
 
-        this.provider.dadosApi(dados, 'api_adm.php').subscribe(data => {
-          this.mensagemSalvar();
+        this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
+
+          var alert = data['msg'];
+          if(data['pagepaut']) {
+            this.storage.setItem('session_storage', data['result']);
+            if(data['success']){
+              this.router.navigate([ '/pautas-home-sindico']);
+            }
+            this.mensagemSalvar();
+            this.sindico_id = "";
+            this.senha = "";
+            console.log(data);
+          }else{
+            const toast = await this.toast.create({
+              message: alert,
+              duration: 2000,
+              color: 'danger'
+            });
+            toast.present();
+            console.log(data)
+          }
+          
         });
     });
 
