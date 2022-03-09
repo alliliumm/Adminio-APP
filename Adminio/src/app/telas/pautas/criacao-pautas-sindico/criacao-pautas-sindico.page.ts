@@ -70,7 +70,7 @@ export class CriacaoPautasSindicoPage implements OnInit {
       const toast = await this.toast.create({
         message: 'Escreva o assunto',
         duration: 2000,
-        color: 'success'
+        color: 'warning'
       });
       toast.present();
       return;
@@ -78,8 +78,41 @@ export class CriacaoPautasSindicoPage implements OnInit {
 
     if(this.conteudo == ""){
       const toast = await this.toast.create({
-        message: 'Escreva uma pauta',
+        message: 'Escreva o conteúdo',
         duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+      
+    }
+
+    if(this.status == ""){
+      const toast = await this.toast.create({
+        message: 'Selecione um status',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+      
+    }
+
+    if(this.senha == ""){
+      const toast = await this.toast.create({
+        message: 'Escreva a sua senha',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+      
+    }
+
+    if(this.sindico == ""){
+      const toast = await this.toast.create({
+        message: 'Selecione um síndico',
+        duration: 3000,
         color: 'warning'
       });
       toast.present();
@@ -97,7 +130,7 @@ export class CriacaoPautasSindicoPage implements OnInit {
         pautas_sindico_id : this.sindico_fk,
         senha: this.senha
 
-        };
+      };
 
         this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
 
@@ -108,7 +141,7 @@ export class CriacaoPautasSindicoPage implements OnInit {
               this.router.navigate([ '/pautas-home-sindico']);
             }
             this.mensagemSalvar();
-            this.sindico_id = "";
+            this.sindico = "";
             this.senha = "";
             console.log(data);
           }else{
@@ -132,7 +165,6 @@ export class CriacaoPautasSindicoPage implements OnInit {
       duration: 1000
     });
     toast.present();
-    this.admhome();
   }
 
 }

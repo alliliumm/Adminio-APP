@@ -38,7 +38,7 @@
 
   <ion-item >
     <ion-label>Síndico:</ion-label>
-    <ion-select placeholder="Selecione" (ionChange)="segmentChanged($event)" name="sindico">
+    <ion-select placeholder="Selecione" (ionChange)="segmentChanged($event)" [(ngModel)]="sindico">
       <ion-select-option *ngFor="let sindicos of sindicos" value="{{sindicos.sindico_id}}">{{sindicos.nome}}</ion-select-option>
     </ion-select>
   </ion-item>
