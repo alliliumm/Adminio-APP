@@ -37,6 +37,10 @@ export class PautasHomeSindicoPage implements OnInit {
     this.router.navigate(['/home-sindico']);
   }
 
+  resultados(){
+    
+  }
+
   criacaopauta(){
     this.router.navigate(['/criacao-pautas-sindico']);
   }
