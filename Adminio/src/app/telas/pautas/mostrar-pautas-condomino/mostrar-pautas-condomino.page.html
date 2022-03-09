@@ -1,9 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>mostrar-pautas-condomino</ion-title>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="pautlist()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pauta</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
-</ion-content>
+<ion-content>
+  <ion-card class="cinza-claro">
+    <ion-card-header>
+      <ion-card-title>
+        {{assunto}}
+      </ion-card-title>
+      <h6>{{status}}</h6>
+      <h6>ID do síndico:{{pauta_sindico_id}}</h6>
+    </ion-card-header>
+    <ion-card-content>
+     <h2>{{conteudo}}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item>
+    <ion-label>Vote:</ion-label>
+    <ion-select placeholder="Selecione" [(ngModel)]="voto" (ionChange)="segmentChangedd($event)" name="voto">
+      <ion-select-option value="sim">Sim</ion-select-option>
+      <ion-select-option value="nao">Não</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+
+  <ion-button expand="block" color="success" (click)="votecom()">Enviar</ion-button>
+  </ion-content>

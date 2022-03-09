@@ -11,10 +11,13 @@ export class PautasHomeCondominoPage implements OnInit {
 
   assunto: string = "";
   conteudo: string = "";
+  status: string = "";
+  pauta_id: string = "";
+  pautas_sindico_id: string = "";
   pautas : any = [];
   limit : number = 10;
   start : number = 0;
-  pauta_id: string = "";
+ 
 
   constructor(private router: Router, private provider: Post) { }
  
@@ -31,7 +34,7 @@ export class PautasHomeCondominoPage implements OnInit {
   }
 
   userhome(){
-    this.router.navigate(['/userhome']);
+    this.router.navigate(['/home-condomino']);
   }
 
   carregar(){
@@ -44,7 +47,7 @@ export class PautasHomeCondominoPage implements OnInit {
         start : this.start
         };
 
-        this.provider.dadosApi(dados, 'api_user.php').subscribe(data => {
+        this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
 
         if(data['result'] == '0') {
           this.ionViewWillEnter();
@@ -62,8 +65,8 @@ export class PautasHomeCondominoPage implements OnInit {
     
   }
 
-  mostrar(pauta_id, assunto, conteudo){
-    this.router.navigate(['/mostrar-pautas/' + pauta_id + '/' + assunto + '/' + conteudo]);
+  mostrar(pauta_id, assunto, conteudo, status, pauta_sindico_id ){
+    this.router.navigate(['/mostrar-pautas-condomino/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pauta_sindico_id]);
   }
 
   

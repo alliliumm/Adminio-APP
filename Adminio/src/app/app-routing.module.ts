@@ -92,6 +92,10 @@ const routes: Routes = [
     loadChildren: () => import('./telas/pautas/mostrar-pautas-condomino/mostrar-pautas-condomino.module').then( m => m.MostrarPautasCondominoPageModule)
   },
   {
+    path: 'mostrar-pautas-condomino/:pauta_id/:assunto/:conteudo/:status/:pautas-sindico-id',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-condomino/mostrar-pautas-condomino.module').then( m => m.MostrarPautasCondominoPageModule)
+  },
+  {
     path: 'pautas-home-sindico',
     loadChildren: () => import('./telas/pautas/pautas-home-sindico/pautas-home-sindico.module').then( m => m.PautasHomeSindicoPageModule)
   },
