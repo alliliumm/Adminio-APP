@@ -141,26 +141,90 @@ else if ($postjson['requisicao'] == 'newpaut') {
 }
 
 
-/*Excluir usuário . Administrador*/ 
+/*Excluir pauta . Administrador*/ 
 
-    else if($postjson['requisicao'] == 'excluir'){
+else if($postjson['requisicao'] == 'excluirpaut'){
     
             
-        $query = $pdo->query("DELETE FROM morador where morador_id = '$postjson[morador_id]'");
-      
-                 
-      
-          if($query){
-            $result = json_encode(array('success'=>true));
-      
-            }else{
-            $result = json_encode(array('success'=>false));
-        
-            }
-         echo $result;
-    
-        }
+  $query = $pdo->query("DELETE FROM pautas where pauta_id = '$postjson[pauta_id]'");
 
+    if($query){
+      $result = json_encode(array('success'=>true));
+
+      }else{
+      $result = json_encode(array('success'=>false));
+  
+      }
+   echo $result;
+
+  }
+
+
+/*Editar Pautas*/
+
+else if ($postjson['requisicao'] == 'editpaut') {
+
+  if ($query = $pdo->query("SELECT * from sindicos where sindico_id = '$postjson[pautas_sindico_id]' and senha_sin = '$postjson[senha]'")) {
+    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    for ($i = 0; $i < count($res); $i++) {
+      foreach ($res[$i] as $key => $value) {
+      }
+      $dados = array(
+        'sindico_id' => $res[$i]['sindico_id'],
+        'senha_sin' => $res[$i]['senha_sin']
+      );
+    }
+
+    if (count($res) > 0) {
+
+      $result = json_encode(array('success' => true, 'result' => $dados, 'pagepautedit' => true));
+      echo $result;
+
+      $query = $pdo->prepare("UPDATE pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id where pauta_id = '$postjson[pauta_id]'");
+
+      $query->bindValue(":assunto", $postjson['assunto']);
+      $query->bindValue(":conteudo", $postjson['conteudo']);
+      $query->bindValue(":status", $postjson['status']);
+      $query->bindValue(":pautas_sindico_id", $postjson['pautas_sindico_id']);
+      $query->execute();
+
+      if ($query) {
+        $result = json_encode(array('success' => true));
+      } else {
+        $result = json_encode(array('success' => false));
+      }
+      echo $result;
+
+    } else {
+      $result = json_encode(array('success' => false, 'msg' => 'Dados Incorretos!'));
+      echo "Dados inválidos";
+    }
+  }
+}
+
+
+
+
+/*Excluir usuário . Administrador*/ 
+
+else if($postjson['requisicao'] == 'excluir'){
+    
+            
+  $query = $pdo->query("DELETE FROM morador where morador_id = '$postjson[morador_id]'");
+
+           
+
+    if($query){
+      $result = json_encode(array('success'=>true));
+
+      }else{
+      $result = json_encode(array('success'=>false));
+  
+      }
+   echo $result;
+
+  }
 
 /*Editar usuário > Administrador*/ 
 

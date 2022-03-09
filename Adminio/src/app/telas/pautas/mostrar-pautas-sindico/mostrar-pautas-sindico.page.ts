@@ -35,9 +35,25 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
 
 
   pautlist(){
-    this.router.navigate(['/pautas-home-condomino']);
+    this.router.navigate(['/pautas-home-sindico']);
   }
 
+  enviareditsin(pauta_id, assunto, conteudo, status, pautas_sindico_id){
+    this.router.navigate(['/edicao-pautas-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
+  }
+
+  excluirpaut(pauta_id){
+    return new Promise(resolve => {
+      
+      let dados = {
+        requisicao : 'excluirpaut',
+        pauta_id : pauta_id 
+        };
+        this.provider.dadosApi(dados, 'api_adm.php').subscribe(data => {
+        });
+        this.router.navigate(['/pautas-home-sindico']);
+    });
+  }
 
  
 }

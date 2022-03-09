@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="success">
-    <ion-buttons slot="start" (click)="admhome()">
+    <ion-buttons slot="start" (click)="pauthomesind()">
       <ion-button>
         <ion-icon name="arrow-back"> </ion-icon>
       </ion-button>
@@ -31,7 +31,6 @@
       <ion-select-option value="p1"> </ion-select-option>
       <ion-select-option value="aberto">Aberto</ion-select-option>
       <ion-select-option value="fechado">Fechado</ion-select-option>
-      <ion-select-option value="resultado">Resultado</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -48,10 +47,11 @@
   </ion-item>
 
   <div>
-    <ion-button id="admbutton1" expand="block" color="success" (click)="enviar()">
+    <ion-button id="admbutton1" expand="block" color="success" (click)="enviaredit(pauta_id)">
       Enviar
     </ion-button>
   </div>
 
 
 </ion-content>
+

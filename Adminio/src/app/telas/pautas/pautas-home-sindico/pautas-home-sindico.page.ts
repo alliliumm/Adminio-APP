@@ -69,7 +69,24 @@ export class PautasHomeSindicoPage implements OnInit {
     this.router.navigate(['/mostrar-pautas-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
   }
 
+  editar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
+    this.router.navigate(['/edicao-pautas-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
+  }
+
   
+  excluir(pauta_id){
+    return new Promise(resolve => {
+      
+      let dados = {
+        requisicao : 'excluirpaut',
+        pauta_id : pauta_id 
+        };
+
+        this.provider.dadosApi(dados, 'api_adm.php').subscribe(data => {
+         this.ionViewWillEnter();
+        });
+    });
+  }
   
 
  //atualizar o list view

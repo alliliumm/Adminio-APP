@@ -110,7 +110,16 @@ const routes: Routes = [
   {
     path: 'criacao-pautas-sindico',
     loadChildren: () => import('./telas/pautas/criacao-pautas-sindico/criacao-pautas-sindico.module').then( m => m.CriacaoPautasSindicoPageModule)
+  },
+  {
+    path: 'edicao-pautas-sindico',
+    loadChildren: () => import('./telas/pautas/edicao-pautas-sindico/edicao-pautas-sindico.module').then( m => m.EdicaoPautasSindicoPageModule)
+  },
+  {
+    path: 'edicao-pautas-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/edicao-pautas-sindico/edicao-pautas-sindico.module').then( m => m.EdicaoPautasSindicoPageModule)
   }
+
 
 
 ];
