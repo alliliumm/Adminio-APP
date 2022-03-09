@@ -22,7 +22,7 @@ if($postjson['requisicao'] == 'listarcond'){
 
 // mostra lista de sindico
 
-if($postjson['requisicao'] == 'listarsindico'){
+else if($postjson['requisicao'] == 'listarsindico'){
 
   $query = $pdo->query("SELECT * from sindicos");
 
@@ -34,42 +34,6 @@ if($postjson['requisicao'] == 'listarsindico'){
 
 }
 
-/*Listar pautas > Usuário*/ 
-    
-else if($postjson['requisicao'] == 'listarpaut'){
-
-  if($postjson['assunto'] == ''){
-      $query = $pdo->query("SELECT * from pautas order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }else{
-    $busca = $postjson['assunto'] . '%';
-    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }
-
-
-  $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
- for ($i=0; $i < count($res); $i++) { 
-    foreach ($res[$i] as $key => $value) {
-    }
-    
-   $dados[] = array(
-     'pauta_id' => $res[$i]['pauta_id'],
-     'assunto' => $res[$i]['assunto'],
-     'conteudo' => $res[$i]['conteudo']
-   );
-
-  }
-
-      if(count($res) > 0){
-              $result = json_encode(array('success'=>true, 'result'=>$dados));
-
-          }else{
-              $result = json_encode(array('success'=>false, 'result'=>'0'));
-
-          }
-          echo $result;
-
-}
 
 /*Listar usuário > Administrador*/ 
     
