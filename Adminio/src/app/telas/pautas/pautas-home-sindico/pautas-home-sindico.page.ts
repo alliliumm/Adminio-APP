@@ -37,12 +37,20 @@ export class PautasHomeSindicoPage implements OnInit {
     this.router.navigate(['/home-sindico']);
   }
 
+  criacaopauta(){
+    this.router.navigate(['/criacao-pautas-sindico']);
+  }
+
+  editarstatus(pauta_id, assunto, status, pautas_sindico_id){
+    this.router.navigate(['/edicao-status-sindico/' + pauta_id + '/' + assunto + '/' + status + '/' + pautas_sindico_id]);
+  }
+
   carregar(){
     return new Promise(resolve => {
       this.pautas = [];
       let dados = {
         requisicao : 'listarpaut',
-        assunto : this.assunto, 
+        assunto : this.assunto,
         limit : this.limit,
         start : this.start
       };
@@ -63,6 +71,64 @@ export class PautasHomeSindicoPage implements OnInit {
         });
     });
     
+  }
+
+  carregarabertos(){
+    return new Promise(resolve => {
+      this.pautas = [];
+      let dados = {
+        requisicao : 'listarabertospaut',
+        assunto : this.assunto,
+        status: this.status, 
+        limit : this.limit,
+        start : this.start
+      };
+
+        this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
+
+        if(data['result'] == '0') {
+          this.ionViewWillEnter();
+        }else{
+          for(let assunto of data['result']){
+            this.pautas.push(assunto);
+            
+          }
+        }
+         
+         resolve(true);
+         
+        });
+    });
+
+  }
+
+  carregarfechados(){
+    return new Promise(resolve => {
+      this.pautas = [];
+      let dados = {
+        requisicao : 'listarfechadospaut',
+        assunto : this.assunto,
+        status: this.status, 
+        limit : this.limit,
+        start : this.start
+      };
+
+        this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
+
+        if(data['result'] == '0') {
+          this.ionViewWillEnter();
+        }else{
+          for(let assunto of data['result']){
+            this.pautas.push(assunto);
+            
+          }
+        }
+         
+         resolve(true);
+         
+        });
+    });
+
   }
 
   mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){

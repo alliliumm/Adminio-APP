@@ -20,16 +20,37 @@
   </ion-buttons>
 </ion-row>
 
+<ion-item>
+  <ion-label>Status:</ion-label>
+  <ion-select placeholder="Selecione" [(ngModel)]="status">
+    <ion-select-option value="p1"(click)="carregar()">Todos</ion-select-option>
+    <ion-select-option value="aberto"(click)="carregarabertos()">Aberto</ion-select-option>
+    <ion-select-option value="fechado"(click)="carregarfechados()">Fechado</ion-select-option>
+  </ion-select>
+</ion-item>
+
+    <ion-button (click)="resultados()">Resultados</ion-button>
 
   <ion-content class="cinza-claro" class="ion-padding">
+
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+      <ion-fab-button color="success" (click)="criacaopauta()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
     <ion-list>
         <ion-item-sliding *ngFor="let assunto of pautas">
 
           <ion-item-options side="start">
-            <ion-item-option
+            <ion-item-option color="success"
               (click)="editar(assunto.pauta_id, assunto.assunto, assunto.conteudo, assunto.status, assunto.pautas_sindico_id)">
               Editar
             </ion-item-option>
+            <ion-item-option
+            (click)="editarstatus(assunto.pauta_id, assunto.assunto, assunto.status, assunto.pautas_sindico_id)">
+            Mudar Status
+          </ion-item-option>
           </ion-item-options>
 
           <ion-item>
@@ -44,6 +65,7 @@
           </ion-item-options>
         </ion-item-sliding>
     </ion-list>
+
 
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
