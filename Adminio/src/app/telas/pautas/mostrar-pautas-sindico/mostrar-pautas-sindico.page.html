@@ -1,9 +1,28 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>mostrar-pautas-sindico</ion-title>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="pautlist()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pauta</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
-</ion-content>
+<ion-content>
+  <ion-card class="cinza-claro">
+    <ion-card-header>
+      <ion-card-title>
+        {{assunto}}
+      </ion-card-title>
+      <h6>{{status}}</h6>
+      <h6>ID do síndico:{{pautas_sindico_id}}</h6>
+    </ion-card-header>
+    <ion-card-content>
+     <h2>{{conteudo}}</h2>
+    </ion-card-content>
+  </ion-card>
+
+
+  </ion-content>

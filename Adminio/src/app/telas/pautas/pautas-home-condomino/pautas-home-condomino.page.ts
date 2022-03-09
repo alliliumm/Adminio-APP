@@ -65,8 +65,8 @@ export class PautasHomeCondominoPage implements OnInit {
     
   }
 
-  mostrar(pauta_id, assunto, conteudo, status, pauta_sindico_id ){
-    this.router.navigate(['/mostrar-pautas-condomino/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pauta_sindico_id]);
+  mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
+    this.router.navigate(['/mostrar-pautas-condomino/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
   }
 
   

@@ -24,7 +24,7 @@
   <ion-content class="cinza-claro" class="ion-padding">
     <ion-list>
         <ion-item *ngFor="let assunto of pautas">
-          <ion-label (click)="mostrar(assunto.pauta_id, assunto.assunto, assunto.conteudo, assunto.status, assunto.pauta_sindico_id)">
+          <ion-label (click)="mostrar(assunto.pauta_id, assunto.assunto, assunto.conteudo, assunto.status, assunto.pautas_sindico_id)">
             {{assunto.assunto}}</ion-label>
         </ion-item>
     </ion-list>

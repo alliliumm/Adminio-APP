@@ -15,7 +15,7 @@ export class MostrarPautasCondominoPage implements OnInit {
   assunto: string="";
   conteudo: string="";
   status: string="";
-  pauta_sindico_id: string="";
+  pautas_sindico_id: string="";
   nome: string="";
 
   comentario: string="";
@@ -34,18 +34,8 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
       this.assunto = data.assunto;
       this.conteudo = data.conteudo;
       this.status = data.status;
-      this.pauta_sindico_id = data.pauta_sindico_id;
+      this.pautas_sindico_id = data.pautas_sindico_id;
 
-    });
-
-    return new Promise(resolve=> {
-      let dados = {
-        requisicao :'listPautas'
-      };
-      this.provider.dadosApi(dados,'api_user.php').subscribe(data => {
-         console.log(data);
-        this.pautas= data;
-      });
     });
   }
 
@@ -63,10 +53,6 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
     toast.present();
   }
   
-  segmentChanged(pauta:any){
-    this.pauta_fk = pauta.detail.value;
-    console.log(pauta)
-  }
 
   segmentChangedd(voto:any){
     this.voto = voto.detail.value;
@@ -75,7 +61,7 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
 
   async votecom(){
 
-    if(this.voto == "" || this.pauta_fk == 0 ){
+    if(this.voto == ""){
       const toast = await this.toastController.create({
         message: 'Selecione todos os Campos!',
         duration: 2000,
@@ -96,7 +82,7 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
 
         this.provider.dadosApi(dados, 'api_user.php').subscribe(data => {
           console.log(data);
-          this.router.navigate(['/userhome']);
+          this.router.navigate(['/pautas-home-condomino']);
           this.mensagemSalvar();
         });
       
