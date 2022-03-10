@@ -41,7 +41,7 @@ export class CadastroCondPage implements OnInit {
   async mensagemSalvar() {
     const toast = await this.toastController.create({
       message: 'Salvo com Sucesso!!',
-      duration: 1000
+      duration: 3000
     });
     toast.present();
   }
@@ -84,7 +84,9 @@ export class CadastroCondPage implements OnInit {
   
         this.provider.dadosApi(dados, 'api_cadastro.php').subscribe(data => {
           this.router.navigate(['/usuarios']);
-          this.mensagemSalvar();
+          if(data['success']){
+            this.mensagemSalvar();
+          }
         });
         this.cadastrosin();
     });
