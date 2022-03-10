@@ -5,11 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-criacao-pautas-sindico',
-  templateUrl: './criacao-pautas-sindico.page.html',
-  styleUrls: ['./criacao-pautas-sindico.page.scss'],
+  selector: 'app-edicao-pautas-sindico',
+  templateUrl: './edicao-pautas-sindico.page.html',
+  styleUrls: ['./edicao-pautas-sindico.page.scss'],
 })
-export class CriacaoPautasSindicoPage implements OnInit {
+export class EdicaoPautasSindicoPage implements OnInit {
   assunto: string = "";
   conteudo: string = "";
   pauta_id: string = "";
@@ -60,84 +60,33 @@ export class CriacaoPautasSindicoPage implements OnInit {
     console.log(sindicos)
   }
 
-  homesind(){
+  pauthomesind(){
     this.router.navigate(['/pautas-home-sindico']);
   }
 
-  async enviar(){
-
-    if(this.assunto == ""){
-      const toast = await this.toast.create({
-        message: 'Escreva o assunto',
-        duration: 2000,
-        color: 'warning'
-      });
-      toast.present();
-      return;
-    }
-
-    if(this.conteudo == ""){
-      const toast = await this.toast.create({
-        message: 'Escreva o conteúdo',
-        duration: 2000,
-        color: 'warning'
-      });
-      toast.present();
-      return;
-      
-    }
-
-    if(this.status == ""){
-      const toast = await this.toast.create({
-        message: 'Selecione um status',
-        duration: 2000,
-        color: 'warning'
-      });
-      toast.present();
-      return;
-      
-    }
-
-    if(this.senha == ""){
-      const toast = await this.toast.create({
-        message: 'Escreva a sua senha',
-        duration: 2000,
-        color: 'warning'
-      });
-      toast.present();
-      return;
-      
-    }
-
-    if(this.sindico == ""){
-      const toast = await this.toast.create({
-        message: 'Selecione um síndico',
-        duration: 3000,
-        color: 'warning'
-      });
-      toast.present();
-      return;
-      
-    }
+  async enviaredit(pauta_id){
 
     return new Promise(resolve => {
       
       let dados = {
-        requisicao : 'newpaut',
+        requisicao : 'editpaut',
         assunto : this.assunto, 
         conteudo : this.conteudo,
         status : this.status,
         pautas_sindico_id : this.sindico_fk,
-        senha: this.senha
+        senha: this.senha,
+        pauta_id: pauta_id
 
       };
 
         this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
 
           var alert = data['msg'];
-          if(data['pagepaut']) {
+          if(data['pagepautedit']) {
             this.storage.setItem('session_storage', data['result']);
-            this.router.navigate([ '/pautas-home-sindico']);
+            if(data['success']){
+              this.router.navigate([ '/pautas-home-sindico']);
+            }
             this.mensagemSalvar();
             this.sindico = "";
             this.senha = "";
@@ -145,7 +94,7 @@ export class CriacaoPautasSindicoPage implements OnInit {
           }else{
             const toast = await this.toast.create({
               message: alert,
-              duration: 2000,
+              duration: 3000,
               color: 'danger'
             });
             toast.present();

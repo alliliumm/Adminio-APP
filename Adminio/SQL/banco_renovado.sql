@@ -35,7 +35,6 @@ CREATE TABLE adminbd.condominos (
     apartamento varchar(10) not null,
     email_cond varchar (100) not null,
     senha_cond char(20) not null,
-    senha_crip char(22) not null,
     FOREIGN KEY (condominos_condominioo_id) REFERENCES condominioo(condominioo_id)
 );
 
@@ -46,7 +45,6 @@ CREATE TABLE adminbd.sindicos (
     sindico_condominioo_id int(10) not null,
     email_sin varchar (100) not null,
     senha_sin varchar(20) not null,
-    senha_crip char(22) not null,
     FOREIGN KEY (sindico_condominioo_id) REFERENCES condominioo(condominioo_id)
 );
 

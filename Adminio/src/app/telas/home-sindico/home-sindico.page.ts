@@ -25,7 +25,7 @@ export class HomeSindicoPage implements OnInit {
   }
 
   assembleiaadm(){
-    this.router.navigate(['/assembleiaadm']);
+    this.router.navigate(['/pautas-home-sindico']);
   }
   usuarios(){
     this.router.navigate(['/usuarios']);

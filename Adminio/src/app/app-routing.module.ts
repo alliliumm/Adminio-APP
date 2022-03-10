@@ -92,6 +92,14 @@ const routes: Routes = [
     loadChildren: () => import('./telas/pautas/mostrar-pautas-condomino/mostrar-pautas-condomino.module').then( m => m.MostrarPautasCondominoPageModule)
   },
   {
+    path: 'mostrar-pautas-condomino/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-condomino/mostrar-pautas-condomino.module').then( m => m.MostrarPautasCondominoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-sindico/mostrar-pautas-sindico.module').then( m => m.MostrarPautasSindicoPageModule)
+  },
+  {
     path: 'pautas-home-sindico',
     loadChildren: () => import('./telas/pautas/pautas-home-sindico/pautas-home-sindico.module').then( m => m.PautasHomeSindicoPageModule)
   },
@@ -102,7 +110,25 @@ const routes: Routes = [
   {
     path: 'criacao-pautas-sindico',
     loadChildren: () => import('./telas/pautas/criacao-pautas-sindico/criacao-pautas-sindico.module').then( m => m.CriacaoPautasSindicoPageModule)
+  },
+  {
+    path: 'edicao-pautas-sindico',
+    loadChildren: () => import('./telas/pautas/edicao-pautas-sindico/edicao-pautas-sindico.module').then( m => m.EdicaoPautasSindicoPageModule)
+  },
+  {
+    path: 'edicao-pautas-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/edicao-pautas-sindico/edicao-pautas-sindico.module').then( m => m.EdicaoPautasSindicoPageModule)
+  },
+  {
+    path: 'edicao-status-sindico',
+    loadChildren: () => import('./telas/pautas/edicao-status-sindico/edicao-status-sindico.module').then( m => m.EdicaoStatusSindicoPageModule)
+  },
+  {
+    path: 'edicao-status-sindico/:pauta_id/:assunto/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/edicao-status-sindico/edicao-status-sindico.module').then( m => m.EdicaoStatusSindicoPageModule)
   }
+
+
 
 
 ];
