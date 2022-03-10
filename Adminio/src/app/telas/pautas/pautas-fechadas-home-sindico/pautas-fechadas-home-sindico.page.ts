@@ -4,11 +4,11 @@ import { Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-pautas-home-sindico',
-  templateUrl: './pautas-home-sindico.page.html',
-  styleUrls: ['./pautas-home-sindico.page.scss'],
+  selector: 'app-pautas-fechadas-home-sindico',
+  templateUrl: './pautas-fechadas-home-sindico.page.html',
+  styleUrls: ['./pautas-fechadas-home-sindico.page.scss'],
 })
-export class PautasHomeSindicoPage implements OnInit {
+export class PautasFechadasHomeSindicoPage implements OnInit {
   assunto: string = "";
   conteudo: string = "";
   status: string = "";
@@ -165,5 +165,4 @@ loadData(event) {
   
 
 }
-  
 }

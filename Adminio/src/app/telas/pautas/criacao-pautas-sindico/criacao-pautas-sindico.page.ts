@@ -123,25 +123,49 @@ export class CriacaoPautasSindicoPage implements OnInit {
     return new Promise(resolve => {
       
       let dados = {
-        requisicao : 'newpaut',
-        assunto : this.assunto, 
-        conteudo : this.conteudo,
-        status : this.status,
+        requisicao : 'consultuserpaut',
         pautas_sindico_id : this.sindico_fk,
         senha: this.senha
 
       };
 
         this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
-
           var alert = data['msg'];
-          if(data['pagepaut']) {
+          if(data['consultpagepaut']) {
             this.storage.setItem('session_storage', data['result']);
-            this.router.navigate([ '/pautas-home-sindico']);
-            this.mensagemSalvar();
             this.sindico = "";
             this.senha = "";
             console.log(data);
+
+            return new Promise(resolve => {
+              let dados = {
+                requisicao : 'newpaut',
+                assunto : this.assunto, 
+                conteudo : this.conteudo,
+                status : this.status,
+                pautas_sindico_id : this.sindico_fk,
+        
+              };
+        
+                this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
+                  if(data['success']) {
+                    this.storage.setItem('session_storage', data['result']);
+                    this.router.navigate([ '/pautas-home-sindico']);
+                    this.mensagemSalvar();
+                    console.log(data);
+                  }else{
+                    const toast = await this.toast.create({
+                      message: alert,
+                      duration: 2000,
+                      color: 'danger'
+                    });
+                    toast.present();
+                    console.log(data)
+                  }
+                  
+                });
+                
+            });
           }else{
             const toast = await this.toast.create({
               message: alert,
@@ -153,6 +177,7 @@ export class CriacaoPautasSindicoPage implements OnInit {
           }
           
         });
+
     });
 
   }

@@ -69,32 +69,54 @@ export class EdicaoPautasSindicoPage implements OnInit {
     return new Promise(resolve => {
       
       let dados = {
-        requisicao : 'editpaut',
-        assunto : this.assunto, 
-        conteudo : this.conteudo,
-        status : this.status,
+        requisicao : 'consultuserpaut',
         pautas_sindico_id : this.sindico_fk,
-        senha: this.senha,
-        pauta_id: pauta_id
+        senha: this.senha
 
       };
 
         this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
-
           var alert = data['msg'];
-          if(data['pagepautedit']) {
+          if(data['consultpagepaut']) {
             this.storage.setItem('session_storage', data['result']);
-            if(data['success']){
-              this.router.navigate([ '/pautas-home-sindico']);
-            }
-            this.mensagemSalvar();
             this.sindico = "";
             this.senha = "";
             console.log(data);
+
+            return new Promise(resolve => {
+              let dados = {
+                requisicao : 'editpaut',
+                assunto : this.assunto, 
+                conteudo : this.conteudo,
+                status : this.status,
+                pautas_sindico_id : this.sindico_fk,
+                pauta_id: pauta_id
+        
+              };
+        
+                this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
+                  if(data['success']) {
+                    this.storage.setItem('session_storage', data['result']);
+                    this.router.navigate([ '/pautas-home-sindico']);
+                    this.mensagemSalvar();
+                    console.log(data);
+                  }else{
+                    const toast = await this.toast.create({
+                      message: alert,
+                      duration: 2000,
+                      color: 'danger'
+                    });
+                    toast.present();
+                    console.log(data)
+                  }
+                  
+                });
+                
+            });
           }else{
             const toast = await this.toast.create({
               message: alert,
-              duration: 3000,
+              duration: 2000,
               color: 'danger'
             });
             toast.present();
@@ -102,9 +124,11 @@ export class EdicaoPautasSindicoPage implements OnInit {
           }
           
         });
+
     });
 
   }
+
 
   async mensagemSalvar() {
     const toast = await this.toast.create({
@@ -113,5 +137,20 @@ export class EdicaoPautasSindicoPage implements OnInit {
     });
     toast.present();
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
