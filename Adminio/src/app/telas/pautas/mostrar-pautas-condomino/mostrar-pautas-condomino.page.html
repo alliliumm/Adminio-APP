@@ -18,6 +18,7 @@
       </ion-card-title>
       <h6>{{status}}</h6>
       <h6>ID do síndico:{{pautas_sindico_id}}</h6>
+      <h6>ID da pauta:{{pauta_id}}</h6>
     </ion-card-header>
     <ion-card-content>
      <h2>{{conteudo}}</h2>
@@ -32,7 +33,19 @@
     </ion-select>
   </ion-item>
 
+  <ion-item >
+    <ion-label>Condômino:</ion-label>
+    <ion-select placeholder="Selecione" (ionChange)="segmentChanged($event)" [(ngModel)]="condomino">
+      <ion-select-option *ngFor="let condominos of condominos" value="{{condominos.condomino_id}}">{{condominos.condnome}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Senha de condômino:</ion-label>
+    <ion-input type="password" [(ngModel)]="senha"></ion-input>
+  </ion-item>
 
 
-  <ion-button expand="block" color="success" (click)="votecom()">Enviar</ion-button>
+
+  <ion-button expand="block" color="success" (click)="votecom(pauta_id)">Enviar</ion-button>
   </ion-content>

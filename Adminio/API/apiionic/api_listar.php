@@ -34,6 +34,21 @@ else if($postjson['requisicao'] == 'listarsindico'){
 
 }
 
+// mostra lista de condomino
+
+else if($postjson['requisicao'] == 'listarcondomino'){
+
+  $query = $pdo->query("SELECT * from condominos");
+
+    while($d = $query->fetch(PDO::FETCH_ASSOC)){
+      $data[] = $d;
+    }
+    
+  exit(json_encode($data));
+
+}
+
+
 
 /*Listar usuário > Administrador*/ 
     

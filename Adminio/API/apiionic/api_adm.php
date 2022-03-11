@@ -126,6 +126,7 @@ else if ($postjson['requisicao'] == 'consultuserpaut') {
 
 
 
+
 /*Criar Pautas*/
 
 else if ($postjson['requisicao'] == 'newpaut') {
