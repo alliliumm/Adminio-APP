@@ -61,7 +61,6 @@ export class LoginsPage implements OnInit {
       };
 
       this.provider.dadosApi(dados,'api_login.php').subscribe(async data => {
-
         var alert = data['msg'];
         if(data['pageadm']) {
           this.storage.setItem('session_storage', data['result']);
@@ -94,7 +93,7 @@ export class LoginsPage implements OnInit {
         }else{
           const toast = await this.toast.create({
             message: alert,
-            duration: 2000,
+            duration: 3000,
             color: 'danger'
           });
           toast.present();
