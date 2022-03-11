@@ -126,7 +126,39 @@ const routes: Routes = [
   {
     path: 'edicao-status-sindico/:pauta_id/:assunto/:status/:pautas_sindico_id',
     loadChildren: () => import('./telas/pautas/edicao-status-sindico/edicao-status-sindico.module').then( m => m.EdicaoStatusSindicoPageModule)
+  },  {
+    path: 'resultados-sindico',
+    loadChildren: () => import('./telas/pautas/resultados-sindico/resultados-sindico.module').then( m => m.ResultadosSindicoPageModule)
+  },
+  {
+    path: 'resultados-condomino',
+    loadChildren: () => import('./telas/pautas/resultados-condomino/resultados-condomino.module').then( m => m.ResultadosCondominoPageModule)
+  },
+  {
+    path: 'pautas-fechadas-home-sindico',
+    loadChildren: () => import('./telas/pautas/pautas-fechadas-home-sindico/pautas-fechadas-home-sindico.module').then( m => m.PautasFechadasHomeSindicoPageModule)
+  },
+  {
+    path: 'pautas-fechadas-home-condomino',
+    loadChildren: () => import('./telas/pautas/pautas-fechadas-home-condomino/pautas-fechadas-home-condomino.module').then( m => m.PautasFechadasHomeCondominoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-fechadas-sindico',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-fechadas-sindico/mostrar-pautas-fechadas-sindico.module').then( m => m.MostrarPautasFechadasSindicoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-fechadas-condomino',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-fechadas-condomino/mostrar-pautas-fechadas-condomino.module').then( m => m.MostrarPautasFechadasCondominoPageModule)
+  },
+  {
+    path: 'pautas-avalicacao-sindico',
+    loadChildren: () => import('./telas/pautas/pautas-avalicacao-sindico/pautas-avalicacao-sindico.module').then( m => m.PautasAvalicacaoSindicoPageModule)
+  },
+  {
+    path: 'pautas-avaliacao-condomino',
+    loadChildren: () => import('./telas/pautas/pautas-avaliacao-condomino/pautas-avaliacao-condomino.module').then( m => m.PautasAvaliacaoCondominoPageModule)
   }
+
 
 
 

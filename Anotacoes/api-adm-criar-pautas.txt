@@ -1,0 +1,147 @@
+/*Criar Pautas*/
+else if ($postjson['requisicao'] == 'newpaut') {
+
+  if ($query = $pdo->query("SELECT * from sindicos where sindico_id = '$postjson[pautas_sindico_id]' and senha_sin = '$postjson[senha]'")) {
+    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    for ($i = 0; $i < count($res); $i++) {
+      foreach ($res[$i] as $key => $value) {
+      }
+      $dados = array(
+        'sindico_id' => $res[$i]['sindico_id'],
+        'senha_sin' => $res[$i]['senha_sin']
+      );
+    }
+
+    if (count($res) > 0) {
+
+      $result = json_encode(array('success' => true, 'result' => $dados, 'pagepaut' => true));
+      echo $result;
+
+      $query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id");
+
+      $query->bindValue(":assunto", $postjson['assunto']);
+      $query->bindValue(":conteudo", $postjson['conteudo']);
+      $query->bindValue(":status", $postjson['status']);
+      $query->bindValue(":pautas_sindico_id", $postjson['pautas_sindico_id']);
+      $query->execute();
+
+      $pautid = $pdo->lastInsertId();
+
+
+      if ($query) {
+        $result = json_encode(array('success' => true, 'pauta_id' => $pautid));
+      } else {
+        $result = json_encode(array('success' => false));
+      }
+      echo $result;
+
+    } else {
+      $result = json_encode(array('success' => false, 'msg' => 'Dados Incorretos!'));
+      echo "Dados inválidos";
+    }
+  }
+}
+
+
+
+
+
+
+
+typescript
+
+
+async enviar(){
+
+    if(this.assunto == ""){
+      const toast = await this.toast.create({
+        message: 'Escreva o assunto',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+    }
+
+    if(this.conteudo == ""){
+      const toast = await this.toast.create({
+        message: 'Escreva o conteúdo',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+      
+    }
+
+    if(this.status == ""){
+      const toast = await this.toast.create({
+        message: 'Selecione um status',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+      
+    }
+
+    if(this.senha == ""){
+      const toast = await this.toast.create({
+        message: 'Escreva a sua senha',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+      
+    }
+
+    if(this.sindico == ""){
+      const toast = await this.toast.create({
+        message: 'Selecione um síndico',
+        duration: 3000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+      
+    }
+
+    return new Promise(resolve => {
+      
+      let dados = {
+        requisicao : 'newpaut',
+        assunto : this.assunto, 
+        conteudo : this.conteudo,
+        status : this.status,
+        pautas_sindico_id : this.sindico_fk,
+        senha: this.senha
+
+      };
+
+        this.provider.dadosApi(dados, 'api_adm.php').subscribe(async data => {
+
+          var alert = data['msg'];
+          if(data['pagepaut']) {
+            this.storage.setItem('session_storage', data['result']);
+            this.router.navigate([ '/pautas-home-sindico']);
+            this.mensagemSalvar();
+            this.sindico = "";
+            this.senha = "";
+            console.log(data);
+          }else{
+            const toast = await this.toast.create({
+              message: alert,
+              duration: 2000,
+              color: 'danger'
+            });
+            toast.present();
+            console.log(data)
+          }
+          
+        });
+        
+    });
+
+  }
