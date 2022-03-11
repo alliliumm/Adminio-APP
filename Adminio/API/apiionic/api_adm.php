@@ -95,8 +95,8 @@ else if($postjson['requisicao'] == 'newpaut'){
         }
 */
 
-/*Criar Pautas*/
-else if ($postjson['requisicao'] == 'newpaut') {
+/*Consultar usuário para criar e editar Pautas, editar status das pautas*/
+else if ($postjson['requisicao'] == 'consultuserpaut') {
 
   if ($query = $pdo->query("SELECT * from sindicos where sindico_id = '$postjson[pautas_sindico_id]' and senha_sin = '$postjson[senha]'")) {
     $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -112,10 +112,25 @@ else if ($postjson['requisicao'] == 'newpaut') {
 
     if (count($res) > 0) {
 
-      $result = json_encode(array('success' => true, 'result' => $dados, 'pagepaut' => true));
+      $result = json_encode(array('success' => true, 'result' => $dados, 'consultpagepaut' => true));
       echo $result;
 
-      $query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id");
+    } else {
+      $erro = 'Dados incorretos, verifique se o email e senha estão corretos!';
+      
+      $result = json_encode(array('success' => false, 'msg' => $erro));
+      echo "Dados inválidos";
+    }
+  }
+}
+
+
+
+/*Criar Pautas*/
+
+else if ($postjson['requisicao'] == 'newpaut') {
+
+$query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id");
 
       $query->bindValue(":assunto", $postjson['assunto']);
       $query->bindValue(":conteudo", $postjson['conteudo']);
@@ -127,17 +142,11 @@ else if ($postjson['requisicao'] == 'newpaut') {
 
 
       if ($query) {
-        $result = json_encode(array('success' => true, 'pauta_id' => $pautid));
+        $result = json_encode(array('success' => true, 'pauta_id' => $pautid, 'pagepaut' => true));
       } else {
         $result = json_encode(array('success' => false));
       }
       echo $result;
-
-    } else {
-      $result = json_encode(array('success' => false, 'msg' => 'Dados Incorretos!'));
-      echo "Dados inválidos";
-    }
-  }
 }
 
 
@@ -164,22 +173,6 @@ else if($postjson['requisicao'] == 'excluirpaut'){
 
 else if ($postjson['requisicao'] == 'editpaut') {
 
-  if ($query = $pdo->query("SELECT * from sindicos where sindico_id = '$postjson[pautas_sindico_id]' and senha_sin = '$postjson[senha]'")) {
-    $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    for ($i = 0; $i < count($res); $i++) {
-      foreach ($res[$i] as $key => $value) {
-      }
-      $dados = array(
-        'sindico_id' => $res[$i]['sindico_id'],
-        'senha_sin' => $res[$i]['senha_sin']
-      );
-    }
-
-    if (count($res) > 0) {
-
-      $result = json_encode(array('success' => true, 'result' => $dados, 'pagepautedit' => true));
-      echo $result;
 
       $query = $pdo->prepare("UPDATE pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id where pauta_id = '$postjson[pauta_id]'");
 
@@ -196,33 +189,11 @@ else if ($postjson['requisicao'] == 'editpaut') {
       }
       echo $result;
 
-    } else {
-      $result = json_encode(array('success' => false, 'msg' => 'Dados Incorretos!'));
-      echo "Dados inválidos";
-    }
-  }
 }
 
 /*Editar status das pautas*/
 
 else if ($postjson['requisicao'] == 'editstatus') {
-
-  if ($query = $pdo->query("SELECT * from sindicos where sindico_id = '$postjson[pautas_sindico_id]' and senha_sin = '$postjson[senha]'")) {
-    $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    for ($i = 0; $i < count($res); $i++) {
-      foreach ($res[$i] as $key => $value) {
-      }
-      $dados = array(
-        'sindico_id' => $res[$i]['sindico_id'],
-        'senha_sin' => $res[$i]['senha_sin']
-      );
-    }
-
-    if (count($res) > 0) {
-
-      $result = json_encode(array('success' => true, 'result' => $dados, 'pagestatusedit' => true));
-      echo $result;
 
       $query = $pdo->prepare("UPDATE pautas SET status = :status, pautas_sindico_id = :pautas_sindico_id where pauta_id = '$postjson[pauta_id]'");
 
@@ -237,13 +208,7 @@ else if ($postjson['requisicao'] == 'editstatus') {
       }
       echo $result;
 
-    } else {
-      $result = json_encode(array('success' => false, 'msg' => 'Dados Incorretos!'));
-      echo "Dados inválidos";
-    }
-  }
 }
-
 
 
 
