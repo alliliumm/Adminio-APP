@@ -66,18 +66,27 @@ CREATE TABLE adminbd.pautas(
     pauta_id int (10) AUTO_INCREMENT PRIMARY KEY,
     assunto varchar (100) not null,
     conteudo varchar (3000) not null,
-    status varchar(100)not null,
+    status varchar(100),
     pautas_sindico_id int(10)not null,
     FOREIGN KEY (pautas_sindico_id) REFERENCES sindicos(sindico_id)
 );
 
 CREATE TABLE adminbd.votacao(
     votacao_id int(10) AUTO_INCREMENT PRIMARY KEY,
-    votacao_condomino_id int(10) not null,
+    votacao_pauta_id int(10) not null,
     cont_votosim int,
     cont_votonao int,
+    FOREIGN KEY (votacao_pauta_id) REFERENCES pautas(pauta_id)
+);
+
+CREATE TABLE adminbd.votos(
+    voto_id int(10) AUTO_INCREMENT PRIMARY KEY,
+    votacao_condomino_id int(10) not null,
+    cont_votosim1 int,
+    cont_votonao1 int,
     FOREIGN KEY (votacao_condomino_id) REFERENCES condominos(condomino_id)
 );
+
 
 CREATE TABLE adminbd.comentarios_pauta(
     comentario_id int (10) AUTO_INCREMENT PRIMARY KEY,
@@ -106,6 +115,9 @@ INSERT INTO adminbd.condominos (condnome, tipo_condomino,conjunto,bloco,andar,ap
 ('Nicklas Bismark', 'pessoa fisica condômina','conjunto B','bloco B','2 andar','123','nicklas@gmail.com','123478', 1),
 ('Alessandra Teles', 'pessoa fisica condômina','conjunto B','bloco B','2 andar','124','alessandra@gmail.com','123478', 1);
 
+
+
+
 select* from condominioo;
 select* from enderecos;
 select* from contatos;
@@ -114,7 +126,8 @@ select* from sindicos;
 select* from pautas;
 select* from comunicados;
 select* from comentarios_pauta;
-
+select* from votacao;
+select* from votos;
 
 
 drop database adminbd;
@@ -126,3 +139,5 @@ drop table sindicos;
 drop table pautas;
 drop table comunicados;
 drop table comentarios_pauta;
+drop table votacao;
+drop table votos;
