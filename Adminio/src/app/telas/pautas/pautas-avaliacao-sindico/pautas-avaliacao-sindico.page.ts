@@ -45,23 +45,11 @@ export class PautasAvaliacaoSindicoPage implements OnInit {
     this.router.navigate(['/pautas-home-sindico']);
   }
 
-  criacaopauta(){
-    this.router.navigate(['/criacao-pautas-sindico']);
-  }
 
-
-
-
-  editarstatus(pauta_id, assunto, status, pautas_sindico_id){
-    this.router.navigate(['/edicao-status-sindico/' + pauta_id + '/' + assunto + '/' + status + '/' + pautas_sindico_id]);
-  }
 
   mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
     this.router.navigate(['/mostrar-pautas-avaliacao-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
   }
-
-
-
 
 
 

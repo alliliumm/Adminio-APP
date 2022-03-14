@@ -171,6 +171,10 @@ const routes: Routes = [
     path: 'mostrar-pautas-avaliacao-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
     loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-sindico/mostrar-pautas-avaliacao-sindico.module').then( m => m.MostrarPautasAvaliacaoSindicoPageModule)
   },
+  {
+    path: 'mostrar-pautas-avaliacao-condomino/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-condomino/mostrar-pautas-avaliacao-condomino.module').then( m => m.MostrarPautasAvaliacaoCondominoPageModule)
+  },
 
 
 
