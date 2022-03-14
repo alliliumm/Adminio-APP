@@ -126,7 +126,8 @@ const routes: Routes = [
   {
     path: 'edicao-status-sindico/:pauta_id/:assunto/:status/:pautas_sindico_id',
     loadChildren: () => import('./telas/pautas/edicao-status-sindico/edicao-status-sindico.module').then( m => m.EdicaoStatusSindicoPageModule)
-  },  {
+  },
+  {
     path: 'resultados-sindico',
     loadChildren: () => import('./telas/pautas/resultados-sindico/resultados-sindico.module').then( m => m.ResultadosSindicoPageModule)
   },
@@ -151,13 +152,26 @@ const routes: Routes = [
     loadChildren: () => import('./telas/pautas/mostrar-pautas-fechadas-condomino/mostrar-pautas-fechadas-condomino.module').then( m => m.MostrarPautasFechadasCondominoPageModule)
   },
   {
-    path: 'pautas-avalicacao-sindico',
-    loadChildren: () => import('./telas/pautas/pautas-avalicacao-sindico/pautas-avalicacao-sindico.module').then( m => m.PautasAvalicacaoSindicoPageModule)
-  },
-  {
     path: 'pautas-avaliacao-condomino',
     loadChildren: () => import('./telas/pautas/pautas-avaliacao-condomino/pautas-avaliacao-condomino.module').then( m => m.PautasAvaliacaoCondominoPageModule)
-  }
+  },
+  {
+    path: 'pautas-avaliacao-sindico',
+    loadChildren: () => import('./telas/pautas/pautas-avaliacao-sindico/pautas-avaliacao-sindico.module').then( m => m.PautasAvaliacaoSindicoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-avaliacao-sindico',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-sindico/mostrar-pautas-avaliacao-sindico.module').then( m => m.MostrarPautasAvaliacaoSindicoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-avaliacao-condomino',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-condomino/mostrar-pautas-avaliacao-condomino.module').then( m => m.MostrarPautasAvaliacaoCondominoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-avaliacao-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-sindico/mostrar-pautas-avaliacao-sindico.module').then( m => m.MostrarPautasAvaliacaoSindicoPageModule)
+  },
+
 
 
 

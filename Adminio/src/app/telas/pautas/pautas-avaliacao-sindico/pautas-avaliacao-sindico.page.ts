@@ -4,11 +4,11 @@ import { Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-pautas-home-sindico',
-  templateUrl: './pautas-home-sindico.page.html',
-  styleUrls: ['./pautas-home-sindico.page.scss'],
+  selector: 'app-pautas-avaliacao-sindico',
+  templateUrl: './pautas-avaliacao-sindico.page.html',
+  styleUrls: ['./pautas-avaliacao-sindico.page.scss'],
 })
-export class PautasHomeSindicoPage implements OnInit {
+export class PautasAvaliacaoSindicoPage implements OnInit {
   assunto: string = "";
   conteudo: string = "";
   status: string = "";
@@ -41,8 +41,8 @@ export class PautasHomeSindicoPage implements OnInit {
     this.router.navigate(['/pautas-fechadas-home-sindico']);
   }
 
-  pautavaliacao(){
-    this.router.navigate(['/pautas-avaliacao-sindico']);
+  pautasabertas(){
+    this.router.navigate(['/pautas-home-sindico']);
   }
 
   criacaopauta(){
@@ -57,11 +57,7 @@ export class PautasHomeSindicoPage implements OnInit {
   }
 
   mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
-    this.router.navigate(['/mostrar-pautas-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
-  }
-
-  editar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
-    this.router.navigate(['/edicao-pautas-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
+    this.router.navigate(['/mostrar-pautas-avaliacao-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
   }
 
 
@@ -69,11 +65,12 @@ export class PautasHomeSindicoPage implements OnInit {
 
 
 
-  carregarabertos(){
+
+  carregaravaliacao(){
     return new Promise(resolve => {
       this.pautas = [];
       let dados = {
-        requisicao : 'listarabertospaut',
+        requisicao : 'listaravaliacaopaut',
         assunto : this.assunto,
         status: this.status, 
         limit : this.limit,
@@ -98,51 +95,8 @@ export class PautasHomeSindicoPage implements OnInit {
 
   }
 
-  carregarfechados(){
-    return new Promise(resolve => {
-      this.pautas = [];
-      let dados = {
-        requisicao : 'listarfechadospaut',
-        assunto : this.assunto,
-        status: this.status, 
-        limit : this.limit,
-        start : this.start
-      };
-
-        this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
-
-        if(data['result'] == '0') {
-          this.ionViewWillEnter();
-        }else{
-          for(let assunto of data['result']){
-            this.pautas.push(assunto);
-            
-          }
-        }
-         
-         resolve(true);
-         
-        });
-    });
-
-  }
 
  
-
-  
-  excluir(pauta_id){
-    return new Promise(resolve => {
-      
-      let dados = {
-        requisicao : 'excluirpaut',
-        pauta_id : pauta_id 
-        };
-
-        this.provider.dadosApi(dados, 'api_adm.php').subscribe(data => {
-         this.ionViewWillEnter();
-        });
-    });
-  }
   
 
 
@@ -150,7 +104,7 @@ export class PautasHomeSindicoPage implements OnInit {
   ionViewWillEnter(){
     this.pautas = [];
     this.start = 0;
-    this.carregarabertos();
+    this.carregaravaliacao();
   }
 
  //atualizar o list view
@@ -170,7 +124,7 @@ loadData(event) {
   this.start += this.limit;
 
   setTimeout(() => {
-    this.carregarabertos().then(()=>{ 
+    this.carregaravaliacao().then(()=>{ 
       event.target.complete();
      });
    
