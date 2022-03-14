@@ -210,7 +210,7 @@ else if($postjson['requisicao'] == 'listarabertospaut'){
 
 }
 
-/*Listar pautas abertas*/ 
+/*Listar pautas fechados*/ 
     
 else if($postjson['requisicao'] == 'listarfechadospaut'){
 
@@ -249,6 +249,97 @@ else if($postjson['requisicao'] == 'listarfechadospaut'){
           echo $result;
 
 }
+
+
+
+
+
+
+/*Listar pautas em avaliação*/ 
+    
+else if($postjson['requisicao'] == 'listaravaliacaopaut'){
+
+  if($postjson['assunto'] == ''){
+      $query = $pdo->query("SELECT * from pautas where status LIKE 'avaliacao' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }else{
+    $busca = $postjson['assunto'] . '%';
+    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' or status LIKE 'avaliacao' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }
+
+
+  $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+ for ($i=0; $i < count($res); $i++) { 
+    foreach ($res[$i] as $key => $value) {
+    }
+    
+   $dados[] = array(
+     'pauta_id' => $res[$i]['pauta_id'],
+     'assunto' => $res[$i]['assunto'],
+     'conteudo' => $res[$i]['conteudo'],
+     'status' => $res[$i]['status'],
+     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
+
+   );
+
+  }
+
+      if(count($res) > 0){
+              $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+          }else{
+              $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+          }
+          echo $result;
+
+}
+
+
+
+
+
+
+/*Listar pautas resultados*/ 
+    
+else if($postjson['requisicao'] == 'listarresultadospaut'){
+
+  if($postjson['assunto'] == ''){
+      $query = $pdo->query("SELECT * from pautas where status LIKE 'resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }else{
+    $busca = $postjson['assunto'] . '%';
+    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' or status LIKE 'resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }
+
+
+  $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+ for ($i=0; $i < count($res); $i++) { 
+    foreach ($res[$i] as $key => $value) {
+    }
+    
+   $dados[] = array(
+     'pauta_id' => $res[$i]['pauta_id'],
+     'assunto' => $res[$i]['assunto'],
+     'conteudo' => $res[$i]['conteudo'],
+     'status' => $res[$i]['status'],
+     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
+
+   );
+
+  }
+
+      if(count($res) > 0){
+              $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+          }else{
+              $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+          }
+          echo $result;
+
+}
+
 
 
 
