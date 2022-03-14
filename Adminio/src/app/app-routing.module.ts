@@ -175,6 +175,19 @@ const routes: Routes = [
     path: 'mostrar-pautas-avaliacao-condomino/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
     loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-condomino/mostrar-pautas-avaliacao-condomino.module').then( m => m.MostrarPautasAvaliacaoCondominoPageModule)
   },
+  {
+    path: 'edicao-status-resultado-sindico',
+    loadChildren: () => import('./telas/pautas/edicao-status-resultado-sindico/edicao-status-resultado-sindico.module').then( m => m.EdicaoStatusResultadoSindicoPageModule)
+  },
+  {
+    path: 'edicao-status-resultado-sindico/:pauta_id/:assunto/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/edicao-status-resultado-sindico/edicao-status-resultado-sindico.module').then( m => m.EdicaoStatusResultadoSindicoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-fechadas-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-fechadas-sindico/mostrar-pautas-fechadas-sindico.module').then( m => m.MostrarPautasFechadasSindicoPageModule)
+  },
+
 
 
 

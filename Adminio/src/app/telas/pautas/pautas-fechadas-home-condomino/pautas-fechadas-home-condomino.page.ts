@@ -12,4 +12,6 @@ export class PautasFechadasHomeCondominoPage implements OnInit {
   ngOnInit() {
   }
 
+
+
 }

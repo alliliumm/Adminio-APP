@@ -30,20 +30,20 @@ export class PautasAvaliacaoCondominoPage implements OnInit {
 
 
 
-  homesind(){
-    this.router.navigate(['/home-sindico']);
+  userhome(){
+    this.router.navigate(['/home-condomino']);
   }
 
   resultados(){
-    this.router.navigate(['/resultados-sindico']);
+    this.router.navigate(['/resultados-condomino']);
   }
 
   pautfechadas(){
-    this.router.navigate(['/pautas-fechadas-home-sindico']);
+    this.router.navigate(['/pautas-fechadas-home-condomino']);
   }
 
   pautasabertas(){
-    this.router.navigate(['/pautas-home-sindico']);
+    this.router.navigate(['/pautas-home-condomino']);
   }
 
 

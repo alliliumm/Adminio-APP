@@ -27,11 +27,7 @@ export class PautasFechadasHomeSindicoPage implements OnInit {
   }
 
 
-  ionViewWillEnter(){
-    this.pautas = [];
-    this.start = 0;
-    this.carregarabertos();
-  }
+
 
   homesind(){
     this.router.navigate(['/home-sindico']);
@@ -41,51 +37,22 @@ export class PautasFechadasHomeSindicoPage implements OnInit {
     this.router.navigate(['/resultados-sindico']);
   }
 
-  pautfechadas(){
-    this.router.navigate(['/pautas-fechadas-home-sindico']);
-  }
-
   pautavaliacao(){
     this.router.navigate(['/pautas-avaliacao-sindico']);
   }
 
-  criacaopauta(){
-    this.router.navigate(['/criacao-pautas-sindico']);
-  }
-
-  editarstatus(pauta_id, assunto, status, pautas_sindico_id){
-    this.router.navigate(['/edicao-status-sindico/' + pauta_id + '/' + assunto + '/' + status + '/' + pautas_sindico_id]);
+  pautasabertas(){
+    this.router.navigate(['/pautas-home-sindico']);
   }
 
 
-  carregarabertos(){
-    return new Promise(resolve => {
-      this.pautas = [];
-      let dados = {
-        requisicao : 'listarabertospaut',
-        assunto : this.assunto,
-        status: this.status, 
-        limit : this.limit,
-        start : this.start
-      };
 
-        this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
-
-        if(data['result'] == '0') {
-          this.ionViewWillEnter();
-        }else{
-          for(let assunto of data['result']){
-            this.pautas.push(assunto);
-            
-          }
-        }
-         
-         resolve(true);
-         
-        });
-    });
-
+  mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
+    this.router.navigate(['/mostrar-pautas-fechadas-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
   }
+
+
+
 
   carregarfechados(){
     return new Promise(resolve => {
@@ -116,29 +83,17 @@ export class PautasFechadasHomeSindicoPage implements OnInit {
 
   }
 
-  mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
-    this.router.navigate(['/mostrar-pautas-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
-  }
 
-  editar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
-    this.router.navigate(['/edicao-pautas-sindico/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
-  }
-
+ 
   
-  excluir(pauta_id){
-    return new Promise(resolve => {
-      
-      let dados = {
-        requisicao : 'excluirpaut',
-        pauta_id : pauta_id 
-        };
 
-        this.provider.dadosApi(dados, 'api_adm.php').subscribe(data => {
-         this.ionViewWillEnter();
-        });
-    });
+
+
+  ionViewWillEnter(){
+    this.pautas = [];
+    this.start = 0;
+    this.carregarfechados();
   }
-  
 
  //atualizar o list view
 
@@ -157,7 +112,7 @@ loadData(event) {
   this.start += this.limit;
 
   setTimeout(() => {
-    this.carregarabertos().then(()=>{ 
+    this.carregarfechados().then(()=>{ 
       event.target.complete();
      });
    
@@ -165,4 +120,8 @@ loadData(event) {
   
 
 }
+
+
+
+
 }

@@ -1,43 +1,73 @@
 <ion-header>
   <ion-toolbar color="success">
-    <ion-title>Resultados</ion-title>
+    <ion-buttons slot="start" (click)="userhome()">
+      <ion-button>
+        <ion-icon name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Resultado das Pautas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-row class="success padding-lateral">
   <ion-input placeholder="Buscar" [(ngModel)]="assunto" type="search" (input)="carregar()"></ion-input>
 
-  <ion-buttons (click)="carregar()">
+  <ion-buttons (click)="carregarresultados()">
     <ion-button>
       <ion-icon slot="end" name="search"></ion-icon>
     </ion-button>
   </ion-buttons>
 </ion-row>
 
+<ion-button size="small" color="success" (click)="pautasavaliacao()">Pautas em Avaliação</ion-button>
+<ion-button size="small" color="success" (click)="pautfechadas()">Pautas Fechadas</ion-button>
+<ion-button size="small" color="success" (click)="pautasabertas()">Pautas Abertas</ion-button>
+
 <ion-content>
+
   <ion-content class="cinza-claro" class="ion-padding">
-    <ion-card *ngFor="let assunto of pautas">
-        <ion-item >
-          <ion-card-content>
-            <h2>{{assunto.assunto}}</h2><br>
-            <h2>{{assunto.pauta_id}}</h2><br>
 
-            <div class="flex_center">
+        <ion-card *ngFor="let assunto of pautas">
+          <ion-item>
+            <ion-card-content>
+              <h2>{{assunto.assunto}}</h2><br>
+              <h2>{{assunto.pauta_id}}</h2><br>
 
-            <ion-button id ="flex_center" color="success">
+              <div class="flex_center">
+
+                <ion-button id="flex_center" color="success">
                   <ion-icon slot="start" name="thumbs-up-outline"></ion-icon>
                   Sim: {{assunto.cont_sim}}
-            </ion-button>
+                </ion-button>
 
-          
-          <ion-button  id ="flex_center" color="success">
-              <ion-icon slot="start" name="thumbs-down-outline"></ion-icon>
+
+                <ion-button id="flex_center" color="success">
+                  <ion-icon slot="start" name="thumbs-down-outline"></ion-icon>
                   Não: {{assunto.cont_nao}}
-          </ion-button>
-        </div>
+                </ion-button><br>
 
-           </ion-card-content>
-        </ion-item>
-    </ion-card>
-</ion-content>
- 
+                  <ion-button  color="success" (click)="editarstatus(assunto.pauta_id, assunto.assunto, assunto.status, assunto.pautas_sindico_id)">
+                    Mudar Status
+                  </ion-button>
+
+              </div>
+
+            </ion-card-content>
+          </ion-item>
+        </ion-card>
+
+
+    
+
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Carregando...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-infinite-scroll (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais dados">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </ion-content>

@@ -27,25 +27,37 @@ export class PautasHomeCondominoPage implements OnInit {
   }
 
 
-  ionViewWillEnter(){
-    this.pautas = [];
-    this.start = 0;
-    this.carregar();
-  }
-
   userhome(){
     this.router.navigate(['/home-condomino']);
   }
 
-  carregar(){
+  mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
+    this.router.navigate(['/mostrar-pautas-condomino/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
+  }
+
+  resultados(){
+    this.router.navigate(['/resultados-condomino']);
+  }
+
+  pautfechadas(){
+    this.router.navigate(['/pautas-fechadas-home-condomino']);
+  }
+
+  pautavaliacao(){
+    this.router.navigate(['/pautas-avaliacao-condomino']);
+  }
+
+
+  carregarabertos(){
     return new Promise(resolve => {
       this.pautas = [];
       let dados = {
-        requisicao : 'listarpaut',
-        assunto : this.assunto, 
+        requisicao : 'listarabertospaut',
+        assunto : this.assunto,
+        status: this.status, 
         limit : this.limit,
         start : this.start
-        };
+      };
 
         this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
 
@@ -62,15 +74,17 @@ export class PautasHomeCondominoPage implements OnInit {
          
         });
     });
-    
+
   }
 
-  mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
-    this.router.navigate(['/mostrar-pautas-condomino/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
-  }
 
-  
-  
+
+
+  ionViewWillEnter(){
+    this.pautas = [];
+    this.start = 0;
+    this.carregarabertos();
+  }
 
  //atualizar o list view
 
@@ -89,7 +103,7 @@ loadData(event) {
   this.start += this.limit;
 
   setTimeout(() => {
-    this.carregar().then(()=>{ 
+    this.carregarabertos().then(()=>{ 
       event.target.complete();
      });
    
