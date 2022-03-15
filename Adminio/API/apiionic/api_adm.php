@@ -5,98 +5,9 @@ include_once('conexao.php');
 $postjson = json_decode(file_get_contents('php://input'), true);
 
 
-/*Listar usuário > Administrador*/ 
-    
-if($postjson['requisicao'] == 'listar'){
-
-    if($postjson['nome'] == ''){
-        $query = $pdo->query("SELECT * from morador order by morador_id desc limit $postjson[start], $postjson[limit]");
-    }else{
-      $busca = $postjson['nome'] . '%';
-      $query = $pdo->query("SELECT * from morador where nome LIKE '$busca' or usuario LIKE '$busca' order by morador_id desc limit $postjson[start], $postjson[limit]");
-    }
-
-
-    $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
- 	for ($i=0; $i < count($res); $i++) { 
-      foreach ($res[$i] as $key => $value) {
-      }
- 		$dados[] = array(
- 			'morador_id' => $res[$i]['morador_id'],
- 			'nome' => $res[$i]['nome'],
-			'usuario' => $res[$i]['usuario'],
-      'senha' => $res[$i]['senha'],
-      'senha_crip' => $res[$i]['senha_crip'],
-      'apartamento' => $res[$i]['apartamento'],
-      'bloco' => $res[$i]['bloco']
-            
-        
- 		);
-
-    }
-
-        if(count($res) > 0){
-                $result = json_encode(array('success'=>true, 'result'=>$dados));
-
-            }else{
-                $result = json_encode(array('success'=>false, 'result'=>'0'));
-
-            }
-            echo $result;
-
-}
-
-
-
-/*Criar mensagens pop*/ 
-else if($postjson['requisicao'] == 'newmsg'){
-
-    $query = $pdo->prepare("INSERT INTO historico SET mensagem = :mensagem");
-          
-        $query->bindValue(":mensagem", $postjson['mensagem']);
-        $query->execute();
-          
-        $id = $pdo->lastInsertId();
-               
-          
-        if($query){
-        $result = json_encode(array('success'=>true, 'id_msg'=>$id));
-          
-        }else{
-        $result = json_encode(array('success'=>false));
-            
-        }
-        echo $result;
-        }
-        
-
-/*Criar Pautas*/ 
-/*
-else if($postjson['requisicao'] == 'newpaut'){
-
-    $query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, cont_sim = 0, cont_nao = 0");
-          
-        $query->bindValue(":assunto", $postjson['assunto']);
-        $query->bindValue(":conteudo", $postjson['conteudo']);
-        $query->execute();
-          
-        $id = $pdo->lastInsertId();
-               
-          
-        if($query){
-        $result = json_encode(array('success'=>true, 'pauta_id'=>$id));
-          
-        }else{
-        $result = json_encode(array('success'=>false));
-            
-        }
-        echo $result;
-        }
-*/
 
 /*Consultar usuário para criar e editar Pautas, editar status das pautas*/
-else if ($postjson['requisicao'] == 'consultuserpaut') {
+if ($postjson['requisicao'] == 'consultuserpaut') {
 
   if ($query = $pdo->query("SELECT * from sindicos where sindico_id = '$postjson[pautas_sindico_id]' and senha_sin = '$postjson[senha]'")) {
     $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -127,16 +38,107 @@ else if ($postjson['requisicao'] == 'consultuserpaut') {
 
 
 
+/*Criar Comunicado*/
+
+else if ($postjson['requisicao'] == 'newcomunicado') {
+
+  $query = $pdo->prepare("INSERT INTO comunicados SET assunto = :assunto, conteudo =:conteudo, status = :status, comunicados_sindico_id = :comunicados_sindico_id, cont_sinalizacoes = :cont_sinalizacoes");
+  
+  $number = 0;
+  
+        $query->bindValue(":assunto", $postjson['assunto']);
+        $query->bindValue(":conteudo", $postjson['conteudo']);
+        $query->bindValue(":status", $postjson['status']);
+        $query->bindValue(":comunicados_sindico_id", $postjson['comunicados_sindico_id']);
+        $query->bindValue(":cont_sinalizacoes", $number);
+        $query->execute();
+  
+        $comuid = $pdo->lastInsertId();
+  
+  
+        if ($query) {
+          $result = json_encode(array('success' => true, 'comunicado_id' => $comuid, 'pagecomu' => true));
+        } else {
+          $result = json_encode(array('success' => false));
+        }
+        echo $result;
+}
+
+
+/*Excluir Comunicado . Administrador*/ 
+
+else if($postjson['requisicao'] == 'excluircomunicado'){
+    
+            
+  $query = $pdo->query("DELETE FROM comunicados where comunicado_id = '$postjson[comunicado_id]'");
+
+    if($query){
+      $result = json_encode(array('success'=>true));
+
+      }else{
+      $result = json_encode(array('success'=>false));
+  
+      }
+   echo $result;
+
+  }
+
+        
+/*Editar Comunicados*/
+
+else if ($postjson['requisicao'] == 'editcomunicado') {
+
+
+  $query = $pdo->prepare("UPDATE comunicados SET assunto = :assunto, conteudo =:conteudo, status = :status, comunicados_sindico_id = :comunicados_sindico_id where comunicado_id = '$postjson[comunicado_id]'");
+
+  $query->bindValue(":assunto", $postjson['assunto']);
+  $query->bindValue(":conteudo", $postjson['conteudo']);
+  $query->bindValue(":status", $postjson['status']);
+  $query->bindValue(":comunicados_sindico_id", $postjson['comunicados_sindico_id']);
+  $query->execute();
+
+  if ($query) {
+    $result = json_encode(array('success' => true));
+  } else {
+    $result = json_encode(array('success' => false));
+  }
+  echo $result;
+
+}
+
+/*Editar status dos Comunicados*/
+
+else if ($postjson['requisicao'] == 'editstatuscomunicado') {
+
+  $query = $pdo->prepare("UPDATE comunicados SET status = :status, comunicados_sindico_id = :comunicados_sindico_id where comunicado_id = '$postjson[comunicado_id]'");
+
+  $query->bindValue(":status", $postjson['status']);
+  $query->bindValue(":comunicados_sindico_id", $postjson['comunicados_sindico_id']);
+  $query->execute();
+
+  if ($query) {
+    $result = json_encode(array('success' => true));
+  } else {
+    $result = json_encode(array('success' => false));
+  }
+  echo $result;
+
+}
+
+
+
 /*Criar Pautas*/
 
 else if ($postjson['requisicao'] == 'newpaut') {
 
 $query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id");
 
+
       $query->bindValue(":assunto", $postjson['assunto']);
       $query->bindValue(":conteudo", $postjson['conteudo']);
       $query->bindValue(":status", $postjson['status']);
       $query->bindValue(":pautas_sindico_id", $postjson['pautas_sindico_id']);
+      
       $query->execute();
 
       $pautid = $pdo->lastInsertId();
@@ -213,6 +215,10 @@ else if ($postjson['requisicao'] == 'editstatus') {
 
 
 
+
+
+
+
 /*Excluir usuário . Administrador*/ 
 
 else if($postjson['requisicao'] == 'excluir'){
@@ -232,6 +238,9 @@ else if($postjson['requisicao'] == 'excluir'){
    echo $result;
 
   }
+
+
+
 
 /*Editar usuário > Administrador*/ 
 
@@ -297,45 +306,62 @@ else if($postjson['requisicao'] == 'excluir'){
         }
 
 
-/*Listar pautas pro resultado > Usuário*/ 
-    
-if($postjson['requisicao'] == 'listaresult'){
 
-    if($postjson['assunto'] == ''){
-        $query = $pdo->query("SELECT * from pautas order by pauta_id desc limit $postjson[start], $postjson[limit]");
-    }else{
-      $busca = $postjson['assunto'] . '%';
-      $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-    }
-  
-  
-    $res = $query->fetchAll(PDO::FETCH_ASSOC);
-  
-   for ($i=0; $i < count($res); $i++) { 
-      foreach ($res[$i] as $key => $value) {
+
+
+
+
+
+
+
+
+  /*Criar mensagens pop*/ 
+/*if($postjson['requisicao'] == 'newmsg'){
+
+  $query = $pdo->prepare("INSERT INTO historico SET mensagem = :mensagem");
+        
+      $query->bindValue(":mensagem", $postjson['mensagem']);
+      $query->execute();
+        
+      $id = $pdo->lastInsertId();
+             
+        
+      if($query){
+      $result = json_encode(array('success'=>true, 'id_msg'=>$id));
+        
+      }else{
+      $result = json_encode(array('success'=>false));
+          
       }
-      
-     $dados[] = array(
-       'pauta_id' => $res[$i]['pauta_id'],
-       'assunto' => $res[$i]['assunto'],
-       'conteudo' => $res[$i]['conteudo'],
-       'cont_sim' => $res[$i]['cont_sim'],
-       'cont_nao' => $res[$i]['cont_nao']
-     );
-  
-    }
-  
-        if(count($res) > 0){
-                $result = json_encode(array('success'=>true, 'result'=>$dados));
-  
-            }else{
-                $result = json_encode(array('success'=>false, 'result'=>'0'));
-  
-            }
-            echo $result;
-  
-  }
-  
+      echo $result;
+      }
+
+  */ 
+
+
+  /*Criar Pautas*/ 
+/*
+else if($postjson['requisicao'] == 'newpaut'){
+
+    $query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, cont_sim = 0, cont_nao = 0");
+          
+        $query->bindValue(":assunto", $postjson['assunto']);
+        $query->bindValue(":conteudo", $postjson['conteudo']);
+        $query->execute();
+          
+        $id = $pdo->lastInsertId();
+               
+          
+        if($query){
+        $result = json_encode(array('success'=>true, 'pauta_id'=>$id));
+          
+        }else{
+        $result = json_encode(array('success'=>false));
+            
+        }
+        echo $result;
+        }
+*/
         
 
 ?>

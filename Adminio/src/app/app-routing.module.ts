@@ -27,18 +27,6 @@ const routes: Routes = [
     path: 'mostrar-usuario/:morador_id/:nome/:usuario/:senha/:apartamento/:bloco',
       loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
   },
-  /*{
-    path: 'add-usuario/:morador_id/:nome/:usuario/:senha/:apartamento/:bloco',
-      loadChildren: () => import('./add-usuario/add-usuario.module').then( m => m.AddUsuarioPageModule)
-  },*/
-  {
-    path: 'mostrar-pautas/:pauta_id/:assunto/:conteudo',
-      loadChildren: () => import('./mostrar-pautas/mostrar-pautas.module').then( m => m.MostrarPautasPageModule)
-  },
-  {
-    path: 'popupform',
-    loadChildren: () => import('./popupform/popupform.module').then( m => m.PopupformPageModule)
-  },
   {
     path: 'assembleia',
     loadChildren: () => import('./assembleia/assembleia.module').then( m => m.AssembleiaPageModule)
@@ -52,28 +40,12 @@ const routes: Routes = [
     loadChildren: () => import('./usermsg/usermsg.module').then( m => m.UsermsgPageModule)
   },
   {
-    path: 'mostrar-pautas',
-    loadChildren: () => import('./mostrar-pautas/mostrar-pautas.module').then( m => m.MostrarPautasPageModule)
-  },
-  {
     path: 'resultpage',
     loadChildren: () => import('./resultpage/resultpage.module').then( m => m.ResultpagePageModule)
   },
   {
     path: 'logins',
     loadChildren: () => import('./telas/logins/logins.module').then( m => m.LoginsPageModule)
-  },
-  {
-    path: 'cadastro-sin',
-    loadChildren: () => import('./telas/cadastro-sin/cadastro-sin.module').then( m => m.CadastroSinPageModule)
-  },
-  {
-    path: 'cadastro-condomino',
-    loadChildren: () => import('./telas/cadastro-condomino/cadastro-condomino.module').then( m => m.CadastroCondominoPageModule)
-  },
-  {
-    path: 'cadastro-cond',
-    loadChildren: () => import('./telas/cadastro-cond/cadastro-cond.module').then( m => m.CadastroCondPageModule)
   },
   {
     path: 'home-sindico',
@@ -187,6 +159,93 @@ const routes: Routes = [
     path: 'mostrar-pautas-fechadas-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
     loadChildren: () => import('./telas/pautas/mostrar-pautas-fechadas-sindico/mostrar-pautas-fechadas-sindico.module').then( m => m.MostrarPautasFechadasSindicoPageModule)
   },
+  {
+    path: 'cadastro-cond',
+    loadChildren: () => import('./telas/usuarios/cadastro-cond/cadastro-cond.module').then( m => m.CadastroCondPageModule)
+  },
+  {
+    path: 'cadastro-sin',
+    loadChildren: () => import('./telas/usuarios/cadastro-sin/cadastro-sin.module').then( m => m.CadastroSinPageModule)
+  },
+  {
+    path: 'cadastro-condomino',
+    loadChildren: () => import('./telas/usuarios/cadastro-condomino/cadastro-condomino.module').then( m => m.CadastroCondominoPageModule)
+  },
+  {
+    path: 'criacao-comunicados-sindico',
+    loadChildren: () => import('./telas/comunicados/criacao-comunicados-sindico/criacao-comunicados-sindico.module').then( m => m.CriacaoComunicadosSindicoPageModule)
+  },
+  {
+    path: 'comunicados-home-sindico',
+    loadChildren: () => import('./telas/comunicados/comunicados-home-sindico/comunicados-home-sindico.module').then( m => m.ComunicadosHomeSindicoPageModule)
+  },
+  {
+    path: 'usuarios-home-sindico',
+    loadChildren: () => import('./telas/usuarios/usuarios-home-sindico/usuarios-home-sindico.module').then( m => m.UsuariosHomeSindicoPageModule)
+  },
+  {
+    path: 'comunicados-fechadas-home-sindico',
+    loadChildren: () => import('./telas/comunicados/comunicados-fechadas-home-sindico/comunicados-fechadas-home-sindico.module').then( m => m.ComunicadosFechadasHomeSindicoPageModule)
+  },
+  {
+    path: 'edicao-status-comunicados-sindico',
+    loadChildren: () => import('./telas/comunicados/edicao-status-comunicados-sindico/edicao-status-comunicados-sindico.module').then( m => m.EdicaoStatusComunicadosSindicoPageModule)
+  },
+  {
+    path: 'edicao-status-comunicados-sindico/:comunicado_id/:assunto/:status/:comunicados_sindico_id',
+    loadChildren: () => import('./telas/comunicados/edicao-status-comunicados-sindico/edicao-status-comunicados-sindico.module').then( m => m.EdicaoStatusComunicadosSindicoPageModule)
+  },
+  {
+    path: 'edicao-comunicados-sindico',
+    loadChildren: () => import('./telas/comunicados/edicao-comunicados-sindico/edicao-comunicados-sindico.module').then( m => m.EdicaoComunicadosSindicoPageModule)
+  },
+  {
+    path: 'edicao-comunicados-sindico/:comunicado_id/:assunto/:conteudo/:status/:comunicados_sindico_id',
+    loadChildren: () => import('./telas/comunicados/edicao-comunicados-sindico/edicao-comunicados-sindico.module').then( m => m.EdicaoComunicadosSindicoPageModule)
+  },
+  {
+    path: 'comunicados-home-condomino',
+    loadChildren: () => import('./telas/comunicados/comunicados-home-condomino/comunicados-home-condomino.module').then( m => m.ComunicadosHomeCondominoPageModule)
+  },
+  {
+    path: 'comunicados-fechadas-home-condomino',
+    loadChildren: () => import('./telas/comunicados/comunicados-fechadas-home-condomino/comunicados-fechadas-home-condomino.module').then( m => m.ComunicadosFechadasHomeCondominoPageModule)
+  },
+  {
+    path: 'mostrar-comunicados-sindico',
+    loadChildren: () => import('./telas/comunicados/mostrar-comunicados-sindico/mostrar-comunicados-sindico.module').then( m => m.MostrarComunicadosSindicoPageModule)
+  },
+  {
+    path: 'mostrar-comunicados-sindico/:comunicado_id/:assunto/:conteudo/:status/:comunicados_sindico_id/:data_enviado/:hora_enviado/:cont_sinalizacoes',
+    loadChildren: () => import('./telas/comunicados/mostrar-comunicados-sindico/mostrar-comunicados-sindico.module').then( m => m.MostrarComunicadosSindicoPageModule)
+  },
+  {
+    path: 'mostrar-comunicados-condomino',
+    loadChildren: () => import('./telas/comunicados/mostrar-comunicados-condomino/mostrar-comunicados-condomino.module').then( m => m.MostrarComunicadosCondominoPageModule)
+  },
+  {
+    path: 'mostrar-comunicados-condomino/:comunicado_id/:assunto/:conteudo/:status/:comunicados_sindico_id/:data_enviado/:hora_enviado/:cont_sinalizacoes',
+    loadChildren: () => import('./telas/comunicados/mostrar-comunicados-condomino/mostrar-comunicados-condomino.module').then( m => m.MostrarComunicadosCondominoPageModule)
+  },
+  {
+    path: 'mostrar-comunicados-fechadas-sindico',
+    loadChildren: () => import('./telas/comunicados/mostrar-comunicados-fechadas-sindico/mostrar-comunicados-fechadas-sindico.module').then( m => m.MostrarComunicadosFechadasSindicoPageModule)
+  },
+  {
+    path: 'mostrar-comunicados-fechadas-sindico/:comunicado_id/:assunto/:conteudo/:status/:comunicados_sindico_id/:data_enviado/:hora_enviado/:cont_sinalizacoes',
+    loadChildren: () => import('./telas/comunicados/mostrar-comunicados-fechadas-sindico/mostrar-comunicados-fechadas-sindico.module').then( m => m.MostrarComunicadosFechadasSindicoPageModule)
+  },
+  {
+    path: 'mostrar-comunicados-fechadas-condomino',
+    loadChildren: () => import('./telas/comunicados/mostrar-comunicados-fechadas-condomino/mostrar-comunicados-fechadas-condomino.module').then( m => m.MostrarComunicadosFechadasCondominoPageModule)
+  },
+  {
+    path: 'mostrar-comunicados-fechadas-condomino/:comunicado_id/:assunto/:conteudo/:status/:comunicados_sindico_id/:data_enviado/:hora_enviado/:cont_sinalizacoes',
+    loadChildren: () => import('./telas/comunicados/mostrar-comunicados-fechadas-condomino/mostrar-comunicados-fechadas-condomino.module').then( m => m.MostrarComunicadosFechadasCondominoPageModule)
+  },
+
+
+
 
 
 

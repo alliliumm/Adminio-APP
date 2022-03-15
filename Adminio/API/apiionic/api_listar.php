@@ -50,6 +50,265 @@ else if($postjson['requisicao'] == 'listarcondomino'){
 
 
 
+/*Listar pautas abertas*/ 
+    
+else if($postjson['requisicao'] == 'listarabertospaut'){
+
+  if($postjson['assunto'] == ''){
+      $query = $pdo->query("SELECT * from pautas where status LIKE 'Aberto' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }else{
+    $busca = $postjson['assunto'] . '%';
+    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' and status LIKE 'Aberto' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }
+
+
+  $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+ for ($i=0; $i < count($res); $i++) { 
+    foreach ($res[$i] as $key => $value) {
+    }
+    
+   $dados[] = array(
+     'pauta_id' => $res[$i]['pauta_id'],
+     'assunto' => $res[$i]['assunto'],
+     'conteudo' => $res[$i]['conteudo'],
+     'status' => $res[$i]['status'],
+     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
+
+   );
+
+  }
+
+      if(count($res) > 0){
+              $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+          }else{
+              $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+          }
+          echo $result;
+
+}
+
+
+/*Listar pautas fechados*/ 
+    
+else if($postjson['requisicao'] == 'listarfechadospaut'){
+
+  if($postjson['assunto'] == ''){
+      $query = $pdo->query("SELECT * from pautas where status LIKE 'Fechado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }else{
+    $busca = $postjson['assunto'] . '%';
+    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' and status LIKE 'Fechado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }
+
+
+  $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+ for ($i=0; $i < count($res); $i++) { 
+    foreach ($res[$i] as $key => $value) {
+    }
+    
+   $dados[] = array(
+     'pauta_id' => $res[$i]['pauta_id'],
+     'assunto' => $res[$i]['assunto'],
+     'conteudo' => $res[$i]['conteudo'],
+     'status' => $res[$i]['status'],
+     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
+
+   );
+
+  }
+
+      if(count($res) > 0){
+              $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+          }else{
+              $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+          }
+          echo $result;
+
+}
+
+
+/*Listar pautas em avaliação*/ 
+    
+else if($postjson['requisicao'] == 'listaravaliacaopaut'){
+
+  if($postjson['assunto'] == ''){
+      $query = $pdo->query("SELECT * from pautas where status LIKE 'Avaliação' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }else{
+    $busca = $postjson['assunto'] . '%';
+    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' and status LIKE 'Avaliação' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }
+
+
+  $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+ for ($i=0; $i < count($res); $i++) { 
+    foreach ($res[$i] as $key => $value) {
+    }
+    
+   $dados[] = array(
+     'pauta_id' => $res[$i]['pauta_id'],
+     'assunto' => $res[$i]['assunto'],
+     'conteudo' => $res[$i]['conteudo'],
+     'status' => $res[$i]['status'],
+     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
+
+   );
+
+  }
+
+      if(count($res) > 0){
+              $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+          }else{
+              $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+          }
+          echo $result;
+
+}
+
+
+/*Listar pautas resultados*/ 
+    
+else if($postjson['requisicao'] == 'listarresultadospaut'){
+
+  if($postjson['assunto'] == ''){
+      $query = $pdo->query("SELECT * from pautas where status LIKE 'Resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }else{
+    $busca = $postjson['assunto'] . '%';
+    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' and status LIKE 'Resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+  }
+
+
+  $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+ for ($i=0; $i < count($res); $i++) { 
+    foreach ($res[$i] as $key => $value) {
+    }
+    
+   $dados[] = array(
+     'pauta_id' => $res[$i]['pauta_id'],
+     'assunto' => $res[$i]['assunto'],
+     'conteudo' => $res[$i]['conteudo'],
+     'status' => $res[$i]['status'],
+     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
+
+   );
+
+  }
+
+      if(count($res) > 0){
+              $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+          }else{
+              $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+          }
+          echo $result;
+
+}
+
+
+
+
+
+
+/*Listar Comunicados abertas*/ 
+    
+else if($postjson['requisicao'] == 'listardisponivelcomunicado'){
+
+  if($postjson['assunto'] == ''){
+      $query = $pdo->query("SELECT * from comunicados where status LIKE 'Disponível' order by comunicado_id desc limit $postjson[start], $postjson[limit]");
+  }else{
+    $busca = $postjson['assunto'] . '%';
+    $query = $pdo->query("SELECT * from comunicados where assunto LIKE '$busca' and status LIKE 'Disponível' order by comunicado_id desc limit $postjson[start], $postjson[limit]");
+  }
+
+
+  $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+ for ($i=0; $i < count($res); $i++) { 
+    foreach ($res[$i] as $key => $value) {
+    }
+    
+   $dados[] = array(
+     'comunicado_id' => $res[$i]['comunicado_id'],
+     'assunto' => $res[$i]['assunto'],
+     'conteudo' => $res[$i]['conteudo'],
+     'status' => $res[$i]['status'],
+     'comunicados_sindico_id' => $res[$i]['comunicados_sindico_id'],
+     'cont_sinalizacoes' => $res[$i]['cont_sinalizacoes'],
+     'data_enviado' => $res[$i]['data_enviado'],
+     'hora_enviado' => $res[$i]['hora_enviado']
+   );
+
+  }
+
+      if(count($res) > 0){
+              $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+          }else{
+              $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+          }
+          echo $result;
+
+}
+
+
+/*Listar Comunicados fechados*/ 
+    
+else if($postjson['requisicao'] == 'listarfechadoscomunicados'){
+
+  if($postjson['assunto'] == ''){
+      $query = $pdo->query("SELECT * from comunicados where status LIKE 'Encerrado' order by comunicado_id desc limit $postjson[start], $postjson[limit]");
+  }else{
+    $busca = $postjson['assunto'] . '%';
+    $query = $pdo->query("SELECT * from comunicados where assunto LIKE '$busca' and status LIKE 'Encerrado' order by comunicado_id desc limit $postjson[start], $postjson[limit]");
+  }
+
+
+  $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+ for ($i=0; $i < count($res); $i++) { 
+    foreach ($res[$i] as $key => $value) {
+    }
+    
+   $dados[] = array(
+     'comunicado_id' => $res[$i]['comunicado_id'],
+     'assunto' => $res[$i]['assunto'],
+     'conteudo' => $res[$i]['conteudo'],
+     'status' => $res[$i]['status'],
+     'comunicados_sindico_id' => $res[$i]['comunicados_sindico_id'],
+     'cont_sinalizacoes' => $res[$i]['cont_sinalizacoes'],
+     'data_enviado' => $res[$i]['data_enviado'],
+     'hora_enviado' => $res[$i]['hora_enviado']
+
+   );
+
+  }
+
+      if(count($res) > 0){
+              $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+          }else{
+              $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+          }
+          echo $result;
+
+}
+
+
+
+
+
+
 /*Listar usuário > Administrador*/ 
     
 else if($postjson['requisicao'] == 'listar'){
@@ -131,175 +390,7 @@ else if($postjson['requisicao'] == 'listarmsg'){
 }
 
 
-/*Listar pautas abertas*/ 
-    
-else if($postjson['requisicao'] == 'listarabertospaut'){
 
-  if($postjson['assunto'] == ''){
-      $query = $pdo->query("SELECT * from pautas where status LIKE 'Aberto' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }else{
-    $busca = $postjson['assunto'] . '%';
-    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' or status LIKE 'Aberto' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }
-
-
-  $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
- for ($i=0; $i < count($res); $i++) { 
-    foreach ($res[$i] as $key => $value) {
-    }
-    
-   $dados[] = array(
-     'pauta_id' => $res[$i]['pauta_id'],
-     'assunto' => $res[$i]['assunto'],
-     'conteudo' => $res[$i]['conteudo'],
-     'status' => $res[$i]['status'],
-     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
-
-   );
-
-  }
-
-      if(count($res) > 0){
-              $result = json_encode(array('success'=>true, 'result'=>$dados));
-
-          }else{
-              $result = json_encode(array('success'=>false, 'result'=>'0'));
-
-          }
-          echo $result;
-
-}
-
-/*Listar pautas fechados*/ 
-    
-else if($postjson['requisicao'] == 'listarfechadospaut'){
-
-  if($postjson['assunto'] == ''){
-      $query = $pdo->query("SELECT * from pautas where status LIKE 'Fechado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }else{
-    $busca = $postjson['assunto'] . '%';
-    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' or status LIKE 'Fechado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }
-
-
-  $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
- for ($i=0; $i < count($res); $i++) { 
-    foreach ($res[$i] as $key => $value) {
-    }
-    
-   $dados[] = array(
-     'pauta_id' => $res[$i]['pauta_id'],
-     'assunto' => $res[$i]['assunto'],
-     'conteudo' => $res[$i]['conteudo'],
-     'status' => $res[$i]['status'],
-     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
-
-   );
-
-  }
-
-      if(count($res) > 0){
-              $result = json_encode(array('success'=>true, 'result'=>$dados));
-
-          }else{
-              $result = json_encode(array('success'=>false, 'result'=>'0'));
-
-          }
-          echo $result;
-
-}
-
-
-
-
-
-
-/*Listar pautas em avaliação*/ 
-    
-else if($postjson['requisicao'] == 'listaravaliacaopaut'){
-
-  if($postjson['assunto'] == ''){
-      $query = $pdo->query("SELECT * from pautas where status LIKE 'Avaliação' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }else{
-    $busca = $postjson['assunto'] . '%';
-    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' or status LIKE 'Avaliação' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }
-
-
-  $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
- for ($i=0; $i < count($res); $i++) { 
-    foreach ($res[$i] as $key => $value) {
-    }
-    
-   $dados[] = array(
-     'pauta_id' => $res[$i]['pauta_id'],
-     'assunto' => $res[$i]['assunto'],
-     'conteudo' => $res[$i]['conteudo'],
-     'status' => $res[$i]['status'],
-     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
-
-   );
-
-  }
-
-      if(count($res) > 0){
-              $result = json_encode(array('success'=>true, 'result'=>$dados));
-
-          }else{
-              $result = json_encode(array('success'=>false, 'result'=>'0'));
-
-          }
-          echo $result;
-
-}
-
-
-
-
-
-
-/*Listar pautas resultados*/ 
-    
-else if($postjson['requisicao'] == 'listarresultadospaut'){
-
-  if($postjson['assunto'] == ''){
-      $query = $pdo->query("SELECT * from pautas where status LIKE 'Resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }else{
-    $busca = $postjson['assunto'] . '%';
-    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' or status LIKE 'Resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
-  }
-
-
-  $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
- for ($i=0; $i < count($res); $i++) { 
-    foreach ($res[$i] as $key => $value) {
-    }
-    
-   $dados[] = array(
-     'pauta_id' => $res[$i]['pauta_id'],
-     'assunto' => $res[$i]['assunto'],
-     'conteudo' => $res[$i]['conteudo'],
-     'status' => $res[$i]['status'],
-     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
-
-   );
-
-  }
-
-      if(count($res) > 0){
-              $result = json_encode(array('success'=>true, 'result'=>$dados));
-
-          }else{
-              $result = json_encode(array('success'=>false, 'result'=>'0'));
-
-          }
-          echo $result;
-
-}
 
 
 

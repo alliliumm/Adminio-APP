@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="homecomunicados()">
+      <ion-button>
+        <ion-icon name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Criação de Comunicados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label position="floating">
+      Assunto:
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="assunto"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">
+      Conteúdo:
+    </ion-label>
+    <ion-textarea auto-grow="true" [(ngModel)]="conteudo"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Status:</ion-label>
+    <ion-select placeholder="Selecione" [(ngModel)]="status">
+      <ion-select-option value="Disponível">Disponível</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item >
+    <ion-label>Síndico:</ion-label>
+    <ion-select placeholder="Selecione" (ionChange)="segmentChanged($event)" [(ngModel)]="sindico">
+      <ion-select-option *ngFor="let sindicos of sindicos" value="{{sindicos.sindico_id}}">{{sindicos.nome}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Senha de síndico:</ion-label>
+    <ion-input type="password" [(ngModel)]="senha"></ion-input>
+  </ion-item>
+
+  <div>
+    <ion-button id="admbutton1" expand="block" color="success" (click)="enviar()">
+      Enviar
+    </ion-button>
+  </div>
+
+
+</ion-content>

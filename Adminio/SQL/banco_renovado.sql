@@ -54,6 +54,7 @@ CREATE TABLE adminbd.comunicados (
     comunicado_id int (10) AUTO_INCREMENT PRIMARY KEY,
     assunto varchar(400),
     conteudo varchar(1500),
+    status varchar(100),
     cont_sinalizacoes int,
     hora_enviado time DEFAULT current_timestamp,
     data_enviado date DEFAULT current_timestamp,
@@ -79,22 +80,6 @@ CREATE TABLE adminbd.votacao(
     FOREIGN KEY (votacao_pauta_id) REFERENCES pautas(pauta_id)
 );
 
-CREATE TABLE adminbd.votos(
-    voto_id int(10) AUTO_INCREMENT PRIMARY KEY,
-    votacao_condomino_id int(10) not null,
-    cont_votosim1 int,
-    cont_votonao1 int,
-    FOREIGN KEY (votacao_condomino_id) REFERENCES condominos(condomino_id)
-);
-
-
-CREATE TABLE adminbd.comentarios_pauta(
-    comentario_id int (10) AUTO_INCREMENT PRIMARY KEY,
-    comentario varchar (300) not null,
-    pauta_id int,
-    comentarios_pauta_condomino_id int(10)not null,
-    FOREIGN KEY (comentarios_pauta_condomino_id) REFERENCES condominos(condomino_id)
-);
 
 
 
@@ -125,12 +110,12 @@ select* from condominos;
 select* from sindicos;
 select* from pautas;
 select* from comunicados;
-select* from comentarios_pauta;
 select* from votacao;
-select* from votos;
+
 
 
 drop database adminbd;
+
 drop table condominioo;
 drop table enderecos;
 drop table contatos;
@@ -138,6 +123,34 @@ drop table condominos;
 drop table sindicos;
 drop table pautas;
 drop table comunicados;
-drop table comentarios_pauta;
 drop table votacao;
-drop table votos;
+drop table adminbd.votos;
+
+
+
+
+
+
+CREATE TABLE adminbd.comentarios_pauta(
+    comentario_id int (10) AUTO_INCREMENT PRIMARY KEY,
+    comentario varchar (300) not null,
+    pauta_id int,
+    comentarios_pauta_condomino_id int(10)not null,
+    FOREIGN KEY (comentarios_pauta_condomino_id) REFERENCES condominos(condomino_id)
+);
+
+CREATE TABLE adminbd.votos(
+    voto_id int(10) AUTO_INCREMENT PRIMARY KEY,
+    votacao_condomino_id int(10) not null,
+    cont_votosim1 int,
+    cont_votonao1 int,
+    FOREIGN KEY (votacao_condomino_id) REFERENCES condominos(condomino_id)
+);
+
+
+select* from comentarios_pauta;
+select* from votos;
+
+
+drop table adminbd.votos;
+drop table adminbd.comentarios_pauta;

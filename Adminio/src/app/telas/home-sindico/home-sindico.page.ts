@@ -18,20 +18,17 @@ export class HomeSindicoPage implements OnInit {
   }
   
   login(){
-    this.router.navigate(['/login']);
+    this.router.navigate(['/logins']);
   }
   popupform(){
-    this.router.navigate(['/popupform']);
+    this.router.navigate(['/comunicados-home-sindico']);
   }
-
   assembleiaadm(){
     this.router.navigate(['/pautas-home-sindico']);
   }
   usuarios(){
-    this.router.navigate(['/usuarios']);
+    this.router.navigate(['/usuarios-home-sindico']);
   }
-  resultpageadm(){
-    this.router.navigate(['/resultpageadm']);
-  }
+
 
 }
