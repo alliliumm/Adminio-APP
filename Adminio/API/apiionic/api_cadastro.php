@@ -143,6 +143,66 @@ else if($postjson['requisicao'] == 'addmo'){
 
 
 
+
+
+/*Editar usuário > Síndico*/ 
+
+else if($postjson['requisicao'] == 'editarsindico'){
+      
+  $query = $pdo->prepare("UPDATE sindicos SET nome = :nome, tipo_sindico = :tipo_sindico, sindico_condominioo_id = :sindico_condominioo_id, email_sin = :email_sin, senha_sin = :senha_sin where sindico_id = '$postjson[sindico_id]'");
+  
+  $query->bindValue(":nome", $postjson['nome']);
+  $query->bindValue(":tipo_sindico", $postjson['tipo_sindico']);
+  $query->bindValue(":sindico_condominioo_id", $postjson['sindico_condominioo_id']);
+  $query->bindValue(":email_sin", $postjson['email_sin']);
+  $query->bindValue(":senha_sin", $postjson['senha_sin']);
+  $query->execute();
+
+  
+       
+  
+    if($query){
+      $result = json_encode(array('success'=>true));
+  
+      }else{
+      $result = json_encode(array('success'=>false));
+    
+      }
+    echo $result;
+
+  }
+
+
+/*Editar usuário > Condômino*/ 
+
+else if($postjson['requisicao'] == 'editarcondomino'){
+      
+  $query = $pdo->prepare("UPDATE condominos SET condnome = :condnome, tipo_condomino = :tipo_condomino, condominos_condominioo_id = :condominos_condominioo_id, conjunto= :conjunto, bloco =:bloco, andar =:andar, apartamento = :apartamento, email_cond = :email_cond, senha_cond = :senha_cond where condomino_id = '$postjson[condomino_id]'");
+  
+  $query->bindValue(":condnome", $postjson['condnome']);
+  $query->bindValue(":tipo_condomino", $postjson['tipo_condomino']);
+  $query->bindValue(":condominos_condominioo_id", $postjson['condominos_condominioo_id']);
+  $query->bindValue(":conjunto", $postjson['conjunto']);
+  $query->bindValue(":bloco", $postjson['bloco']);
+  $query->bindValue(":andar", $postjson['andar']);
+  $query->bindValue(":apartamento", $postjson['apartamento']);
+  $query->bindValue(":email_cond", $postjson['email_cond']);
+  $query->bindValue(":senha_cond", $postjson['senha_cond']);
+  $query->execute();
+
+  
+    if($query){
+      $result = json_encode(array('success'=>true));
+  
+      }else{
+      $result = json_encode(array('success'=>false));
+    
+      }
+    echo $result;
+
+  }
+
+
     
 
 ?>

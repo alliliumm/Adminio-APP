@@ -20,10 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
   },
   {
-    path: 'usuarios',
-    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
-  },
-  {
     path: 'mostrar-usuario/:morador_id/:nome/:usuario/:senha/:apartamento/:bloco',
       loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
   },
@@ -31,10 +27,6 @@ const routes: Routes = [
     path: 'assembleia',
     loadChildren: () => import('./assembleia/assembleia.module').then( m => m.AssembleiaPageModule)
   },
-  {
-    path: 'userhome',
-    loadChildren: () => import('./userhome/userhome.module').then( m => m.UserhomePageModule)
-  },  
   {
     path: 'usermsg',
     loadChildren: () => import('./usermsg/usermsg.module').then( m => m.UsermsgPageModule)
@@ -243,6 +235,43 @@ const routes: Routes = [
     path: 'mostrar-comunicados-fechadas-condomino/:comunicado_id/:assunto/:conteudo/:status/:comunicados_sindico_id/:data_enviado/:hora_enviado/:cont_sinalizacoes',
     loadChildren: () => import('./telas/comunicados/mostrar-comunicados-fechadas-condomino/mostrar-comunicados-fechadas-condomino.module').then( m => m.MostrarComunicadosFechadasCondominoPageModule)
   },
+  {
+    path: 'usuario-home-list-condomino',
+    loadChildren: () => import('./telas/usuarios/usuario-home-list-condomino/usuario-home-list-condomino.module').then( m => m.UsuarioHomeListCondominoPageModule)
+  },
+  {
+    path: 'mostrar-user-sindico',
+    loadChildren: () => import('./telas/usuarios/mostrar-user-sindico/mostrar-user-sindico.module').then( m => m.MostrarUserSindicoPageModule)
+  },
+  {
+    path: 'mostrar-user-sindico/:sindico_id/:nome/:tipo_sindico/:sindico_condominioo_id/:email_sin',
+    loadChildren: () => import('./telas/usuarios/mostrar-user-sindico/mostrar-user-sindico.module').then( m => m.MostrarUserSindicoPageModule)
+  },
+  {
+    path: 'mostrar-user-condomino',
+    loadChildren: () => import('./telas/usuarios/mostrar-user-condomino/mostrar-user-condomino.module').then( m => m.MostrarUserCondominoPageModule)
+  },
+  {
+    path: 'mostrar-user-condomino/:condomino_id/:condnome/:tipo_condomino/:condomino_condominioo_id/:email_cond/:conjunto/:bloco/:andar/:apartamento',
+    loadChildren: () => import('./telas/usuarios/mostrar-user-condomino/mostrar-user-condomino.module').then( m => m.MostrarUserCondominoPageModule)
+  },
+  {
+    path: 'editar-user-condomino',
+    loadChildren: () => import('./telas/usuarios/editar-user-condomino/editar-user-condomino.module').then( m => m.EditarUserCondominoPageModule)
+  },
+  {
+    path: 'editar-user-condomino/:condomino_id/:condnome/:tipo_condomino/:condomino_condominioo_id/:email_cond/:conjunto/:bloco/:andar/:apartamento',
+    loadChildren: () => import('./telas/usuarios/editar-user-condomino/editar-user-condomino.module').then( m => m.EditarUserCondominoPageModule)
+  },
+  {
+    path: 'editar-user-sindico',
+    loadChildren: () => import('./telas/usuarios/editar-user-sindico/editar-user-sindico.module').then( m => m.EditarUserSindicoPageModule)
+  },
+  {
+    path: 'editar-user-sindico/:sindico_id/:nome/:tipo_sindico/:sindico_condominioo_id/:email_sin',
+    loadChildren: () => import('./telas/usuarios/editar-user-sindico/editar-user-sindico.module').then( m => m.EditarUserSindicoPageModule)
+  },
+
 
 
 

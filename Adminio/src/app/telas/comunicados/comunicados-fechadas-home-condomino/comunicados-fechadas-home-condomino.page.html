@@ -1,9 +1,49 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>comunicados-fechadas-home-condomino</ion-title>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="homesind()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Comunicados Encerrados</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-row class="success padding-lateral">
+  <ion-input placeholder="Buscar" [(ngModel)]="assunto" type="search" (input)="carregarfechados()"></ion-input>
+
+  <ion-buttons (click)="carregarfechados()">
+    <ion-button>
+      <ion-icon slot="end" name="search"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-row>
+
+    <ion-button size="small" color="success" (click)="comuabertas()">Comunicados Disponíveis</ion-button>
+
+  <ion-content class="cinza-claro" class="ion-padding">
+
+    <ion-list>
+        <ion-item-sliding *ngFor="let assunto of comunicados">
+
+          <ion-item>
+          <ion-label (click)="mostrarcomunicado(assunto.comunicado_id, assunto.assunto, assunto.conteudo, assunto.status, assunto.comunicados_sindico_id, assunto.data_enviado, assunto.hora_enviado, assunto.cont_sinalizacoes)">
+            {{assunto.assunto}}</ion-label>
+          </ion-item>
+
+        </ion-item-sliding>
+    </ion-list>
+
+
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Carregando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais dados">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

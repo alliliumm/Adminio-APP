@@ -100,7 +100,7 @@ export class CadastroCondominoPage implements OnInit {
     
           this.provider.dadosApi(dados, 'api_cadastro.php').subscribe(data => {
             console.log(data);
-            this.router.navigate(['/usuarios']);
+            this.router.navigate(['/usuario-home-list-condomino']);
             this.mensagemSalvar();
           });
             this.homeadm();
@@ -116,7 +116,7 @@ export class CadastroCondominoPage implements OnInit {
   }
 
   homeadm(){
-    this.router.navigate(['/admhome']);
+    this.router.navigate(['/usuario-home-list-condomino']);
   }
 
 

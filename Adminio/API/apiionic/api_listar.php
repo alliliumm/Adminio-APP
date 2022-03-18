@@ -307,17 +307,15 @@ else if($postjson['requisicao'] == 'listarfechadoscomunicados'){
 
 
 
-
-
-/*Listar usuário > Administrador*/ 
+/*Listar usuário > Sindico*/ 
     
-else if($postjson['requisicao'] == 'listar'){
+else if($postjson['requisicao'] == 'listarusersin'){
 
   if($postjson['nome'] == ''){
-      $query = $pdo->query("SELECT * from morador order by morador_id desc limit $postjson[start], $postjson[limit]");
+      $query = $pdo->query("SELECT * from sindicos order by sindico_id desc limit $postjson[start], $postjson[limit]");
   }else{
     $busca = $postjson['nome'] . '%';
-    $query = $pdo->query("SELECT * from morador where nome LIKE '$busca' or usuario LIKE '$busca' order by morador_id desc limit $postjson[start], $postjson[limit]");
+    $query = $pdo->query("SELECT * from sindicos where nome LIKE '$busca' order by sindico_id desc limit $postjson[start], $postjson[limit]");
   }
 
 
@@ -327,13 +325,12 @@ else if($postjson['requisicao'] == 'listar'){
     foreach ($res[$i] as $key => $value) {
     }
    $dados[] = array(
-     'morador_id' => $res[$i]['morador_id'],
-     'nome' => $res[$i]['nome'],
-    'usuario' => $res[$i]['usuario'],
-    'senha' => $res[$i]['senha'],
-    'senha_crip' => $res[$i]['senha_crip'],
-    'apartamento' => $res[$i]['apartamento'],
-    'bloco' => $res[$i]['bloco']
+    'sindico_id' => $res[$i]['sindico_id'],
+    'nome' => $res[$i]['nome'],
+    'email_sin' => $res[$i]['email_sin'],
+    'senha_sin' => $res[$i]['senha_sin'],
+    'tipo_sindico' => $res[$i]['tipo_sindico'],
+    'sindico_condominioo_id' => $res[$i]['sindico_condominioo_id']
           
       
    );
@@ -351,15 +348,16 @@ else if($postjson['requisicao'] == 'listar'){
 
 }
 
-/*Listar mensagens > Usuário*/ 
-    
-else if($postjson['requisicao'] == 'listarmsg'){
 
-  if($postjson['mensagem'] == ''){
-      $query = $pdo->query("SELECT * from historico order by id_msg desc limit $postjson[start], $postjson[limit]");
+/*Listar usuário > Condômino*/ 
+    
+else if($postjson['requisicao'] == 'listarusercond'){
+
+  if($postjson['condnome'] == ''){
+      $query = $pdo->query("SELECT * from condominos order by condomino_id desc limit $postjson[start], $postjson[limit]");
   }else{
-    $busca = $postjson['mensagem'] . '%';
-    $query = $pdo->query("SELECT * from historico where mensagem LIKE '$busca' order by id_msg desc limit $postjson[start], $postjson[limit]");
+    $busca = $postjson['condnome'] . '%';
+    $query = $pdo->query("SELECT * from condominos where condnome LIKE '$busca' order by condomino_id desc limit $postjson[start], $postjson[limit]");
   }
 
 
@@ -368,12 +366,20 @@ else if($postjson['requisicao'] == 'listarmsg'){
  for ($i=0; $i < count($res); $i++) { 
     foreach ($res[$i] as $key => $value) {
     }
-    
    $dados[] = array(
-     'id_msg' => $res[$i]['id_msg'],
-     'mensagem' => $res[$i]['mensagem'],
-     'dia' => $res[$i]['dia'],
-     'hora' => $res[$i]['hora']
+    'condomino_id' => $res[$i]['condomino_id'],
+    'condnome' => $res[$i]['condnome'],
+    'email_cond' => $res[$i]['email_cond'],
+    'senha_cond' => $res[$i]['senha_cond'],
+    'tipo_condomino' => $res[$i]['tipo_condomino'],
+    'condominos_condominioo_id' => $res[$i]['condominos_condominioo_id'],
+    'conjunto' => $res[$i]['conjunto'],
+    'bloco' => $res[$i]['bloco'],
+    'andar' => $res[$i]['andar'],
+    'apartamento' => $res[$i]['apartamento']
+
+          
+      
    );
 
   }
@@ -388,6 +394,9 @@ else if($postjson['requisicao'] == 'listarmsg'){
           echo $result;
 
 }
+
+
+
 
 
 

@@ -5,38 +5,45 @@
         <ion-icon  name="arrow-back"> </ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Síndicos Cadastrados</ion-title>
+    <ion-title>Condôminos Cadastrados</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-row class="success padding-lateral">
-  <ion-input placeholder="Buscar" [(ngModel)]="nome" type="search" (input)="carregarsindicos()"></ion-input>
+  <ion-input placeholder="Buscar" [(ngModel)]="condnome" type="search" (input)="carregarcondominos()"></ion-input>
 
-  <ion-buttons (click)="carregarsindicos()">
+  <ion-buttons (click)="carregarcondominos()">
     <ion-button>
       <ion-icon slot="end" name="search"></ion-icon>
     </ion-button>
   </ion-buttons>
 </ion-row>
 
-    <ion-button size="small" color="success" (click)="condominos()">Condôminos Cadastrados</ion-button>
+    <ion-button size="small" color="success" (click)="sindicos()">Síndicos Cadastrados</ion-button>
 
   <ion-content class="cinza-claro" class="ion-padding">
 
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+      <ion-fab-button color="success" (click)="cadastrocondominos()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+
     <ion-list>
-        <ion-item-sliding *ngFor="let nome of sindicos">
+        <ion-item-sliding *ngFor="let condnome of condominos">
 
           <ion-item-options side="start">
             <ion-item-option color="success"
-              (click)="editarsindico(nome.sindico_id, nome.nome, nome.tipo_sindico, nome.sindico_condominioo_id, nome.email_sin)">
+              (click)="editarcond(condnome.condomino_id, condnome.condnome, condnome.tipo_condomino, condnome.condomino_condominioo_id, condnome.email_cond, condnome.conjunto, condnome.bloco, condnome.andar, condnome.apartamento)">
               Editar
             </ion-item-option>
           </ion-item-options>
 
           <ion-item>
-          <ion-label (click)="mostrarsindico(nome.sindico_id, nome.nome, nome.tipo_sindico, nome.sindico_condominioo_id, nome.email_sin)">
-            {{nome.nome}}</ion-label>
+          <ion-label (click)="mostrarcond(condnome.condomino_id, condnome.condnome, condnome.tipo_condomino, condnome.condomino_condominioo_id, condnome.email_cond, condnome.conjunto, condnome.bloco, condnome.andar, condnome.apartamento)">
+            {{condnome.condnome}}</ion-label>
           </ion-item>
 
         </ion-item-sliding>
@@ -54,3 +61,4 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+

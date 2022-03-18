@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="login()">
+      <ion-button>
+        <ion-icon name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Editar Síndico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-slides>
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Dados</ion-card-title>
+
+          <br>
+          <ion-item>
+            <ion-label position="floating" maxlength="100"> Nome completo </ion-label>
+            <ion-input [(ngModel)]="nome"> </ion-input>
+          </ion-item>
+
+            <ion-item>
+              <ion-label>Tipo de síndico:</ion-label>
+              <ion-select placeholder="Selecione" [(ngModel)]="tipo_sindico">
+                <ion-select-option value="p1"> </ion-select-option>
+                <ion-select-option value="Pessoa física condômina">Pessoa física condômina</ion-select-option>
+                <ion-select-option value="Pessoa jurídica condômina">Pessoa jurídica condômina</ion-select-option>
+                <ion-select-option value="Pessoa física não condômina">Pessoa física não condômina</ion-select-option>
+                <ion-select-option value="Pessoa jurídica nâo condômina">Pessoa jurídica nâo condômina</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item >
+              <ion-label>Condomínio:</ion-label>
+              <ion-select placeholder="Selecione" (ionChange)="segmentChanged($event)" name="condominioo" >
+                <ion-select-option *ngFor="let condominioo of condominioo" value="{{condominioo.condominioo_id}}">{{condominioo.nomecond}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          <ion-item>
+            <ion-label position="floating" maxlength="60"> Email </ion-label>
+            <ion-input type="email" [(ngModel)]="email_sin"> </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating" maxlength="15"> Senha </ion-label>
+            <ion-input type="password" [(ngModel)]="senha_sin"> </ion-input>
+          </ion-item><br>
+
+
+          <ion-card-title>Confirme o seu usuário</ion-card-title><br>
+
+          <ion-item >
+            <ion-label>Antigo email:</ion-label>
+            <ion-input [(ngModel)]="email"></ion-input>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label position="floating">Antiga senha:</ion-label>
+            <ion-input type="password" [(ngModel)]="senha"></ion-input>
+          </ion-item>
+          
+          <ion-button color="success" expand="block" (click)="editarsin(sindico_id)">
+            Editar
+          </ion-button>
+
+
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

@@ -8,7 +8,7 @@ $postjson = json_decode(file_get_contents('php://input'), true);
 
 if($postjson['requisicao'] == 'login'){
          
-    if($query = $pdo->query("SELECT * from sindicos where email_sin = '$postjson[email]' and senha_sin = '$postjson[senha]'")){
+   $query = $pdo->query("SELECT * from sindicos where email_sin = '$postjson[email]' and senha_sin = '$postjson[senha]'");
         $res = $query->fetchAll(PDO::FETCH_ASSOC);
       
         for ($i=0; $i < count($res); $i++) { 
@@ -26,7 +26,9 @@ if($postjson['requisicao'] == 'login'){
                     $result = json_encode(array('success'=>true, 'result'=>$dados, 'pageadm'=>true));
                     echo $result;
       
-            }else if($query = $pdo->query("SELECT * from condominos where email_cond = '$postjson[email]' and senha_cond = '$postjson[senha]'")){
+            }else{
+                
+                $query = $pdo->query("SELECT * from condominos where email_cond = '$postjson[email]' and senha_cond = '$postjson[senha]'");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
                 
                    for ($i=0; $i < count($res); $i++) { 
@@ -46,18 +48,19 @@ if($postjson['requisicao'] == 'login'){
                         if(count($res) > 0){
                                 $result = json_encode(array('success'=>true, 'result'=>$dados, 'pagemor'=>true));
                                 echo $result;
+                        }else{
+                            $result = json_encode(array('success'=>false, 'msg'=>'Dados Incorretos!'));
+                            echo "Dados inválidos";
                         }
                         
                 
-            }else{
-                $result = json_encode(array('success'=>false, 'msg'=>'Dados Incorretos!'));
-                echo "Dados inválidos";
+            
             }
             
                 
                 
                   
-    }
+    
 
 }
 

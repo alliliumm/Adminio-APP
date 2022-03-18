@@ -1,9 +1,40 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>mostrar-comunicados-fechadas-sindico</ion-title>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="pautlist()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Comunicado Encerrado</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
-</ion-content>
+<ion-content>
+  <ion-card class="cinza-claro">
+    <ion-card-header>
+      <ion-card-title>
+        {{assunto}}
+      </ion-card-title>
+      <p>{{status}}</p>
+      <p>ID do síndico:{{comunicados_sindico_id}}</p>
+      <p>ID do Comunicado:{{comunicado_id}}</p>
+    </ion-card-header>
+    <ion-card-content>
+     <h2>{{conteudo}}</h2><br>
+
+     <p>Data:{{data_enviado}}</p>
+     <p>Hora:{{hora_enviado}}</p><br>
+     
+     
+     <div class="flex_center">
+      <ion-button id ="flex_center" color="success">
+            <ion-icon slot="start" name="thumbs-up-outline"></ion-icon>
+            {{cont_sinalizacoes}}
+      </ion-button>
+     </div>  
+
+    </ion-card-content>
+  </ion-card>
+
+  </ion-content>
