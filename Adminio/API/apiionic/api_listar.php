@@ -50,6 +50,40 @@ else if($postjson['requisicao'] == 'listarcondomino'){
 
 
 
+
+/*Apresentar Votos*/ 
+    
+else if($postjson['requisicao'] == 'apresentarvotos'){
+    
+  $query = $pdo->query("SELECT cont_votosim, cont_votonao from votacao where votacao_pauta_id = '$postjson[pauta_id]'"); 
+
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+for ($i=0; $i < count($res); $i++) { 
+  foreach ($res[$i] as $key => $value) {
+  }
+  
+ $dados[] = array(
+   'cont_votosim' => $res[$i]['cont_votosim'],
+   'cont_votonao' => $res[$i]['cont_votonao']
+
+ );
+
+}
+
+    if(count($res) > 0){
+            $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+        }else{
+            $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+        }
+        echo $result;
+
+}
+
+
+
 /*Listar pautas abertas*/ 
     
 else if($postjson['requisicao'] == 'listarabertospaut'){
@@ -178,10 +212,10 @@ else if($postjson['requisicao'] == 'listaravaliacaopaut'){
 else if($postjson['requisicao'] == 'listarresultadospaut'){
 
   if($postjson['assunto'] == ''){
-      $query = $pdo->query("SELECT * from pautas where status LIKE 'Resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+      $query = $pdo->query("SELECT pauta_id, assunto, conteudo, status, pautas_sindico_id,cont_votosim, cont_votonao FROM pautas INNER JOIN votacao ON pautas.pauta_id = votacao.votacao_pauta_id where status LIKE 'Resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
   }else{
     $busca = $postjson['assunto'] . '%';
-    $query = $pdo->query("SELECT * from pautas where assunto LIKE '$busca' and status LIKE 'Resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
+    $query = $pdo->query("SELECT pauta_id, assunto, conteudo, status, pautas_sindico_id,cont_votosim, cont_votonao FROM pautas INNER JOIN votacao ON pautas.pauta_id = votacao.votacao_pauta_id where assunto LIKE '$busca' and status LIKE 'Resultado' order by pauta_id desc limit $postjson[start], $postjson[limit]");
   }
 
 
@@ -196,15 +230,18 @@ else if($postjson['requisicao'] == 'listarresultadospaut'){
      'assunto' => $res[$i]['assunto'],
      'conteudo' => $res[$i]['conteudo'],
      'status' => $res[$i]['status'],
-     'pautas_sindico_id' => $res[$i]['pautas_sindico_id']
-
+     'pautas_sindico_id' => $res[$i]['pautas_sindico_id'],
+     'cont_votosim' => $res[$i]['cont_votosim'],
+     'cont_votonao' => $res[$i]['cont_votonao']
    );
 
   }
 
+
       if(count($res) > 0){
               $result = json_encode(array('success'=>true, 'result'=>$dados));
 
+            
           }else{
               $result = json_encode(array('success'=>false, 'result'=>'0'));
 

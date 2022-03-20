@@ -87,44 +87,6 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
   }
 
 
-  voteinserirvoto(){
-    return new Promise(resolve => {
-
-      let dados1 = {
-        requisicao : 'inserirnumbersdevot'
-      }
-
-      this.provider.dadosApi(dados1, 'api_user.php').subscribe(async data => {
-        if(data['success']) {
-          console.log(data);
-        }else{
-          console.log(data)
-        }
-      });
-
-
-    });
-  }
-
-  voteinserirvotacao(){
-    return new Promise(resolve => {
-
-      let dados1 = {
-        requisicao : 'inserirnumbersdevota'
-      }
-
-      this.provider.dadosApi(dados1, 'api_user.php').subscribe(async data => {
-        if(data['success']) {
-          console.log(data);
-        }else{
-          console.log(data)
-        }
-      });
-
-
-    });
-  }
-
 
   async votacaoapi(pauta_id){
 
@@ -167,48 +129,9 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
 
 
 
-  async votoapi(){
-
-    if(this.voto == ""){
-      const toast = await this.toastController.create({
-        message: 'Vote em um dos campos!',
-        duration: 3000,
-        color: 'warning'
-      });
-      toast.present();
-      return;
-    }else{ 
-
-      return new Promise(resolve => {
-        let dados = {
-          requisicao : 'vtscomvoto',
-          voto : this.voto,
-          votacao_condomino_id : this.condomino_fk
-        
-        };
-
-
-
-        this.provider.dadosApi(dados, 'api_user.php').subscribe(async data => {
-          if(data['success']) {
-            console.log(data);
-            this.router.navigate(['/pautas-home-condomino']);
-            this.mensagemSalvar();
-          }
-        });
-      
-      
-      });
-    }
-
-  }
-
 
 
   async votecom(){
-
-    this.voteinserirvoto();
-    this.voteinserirvotacao();
 
     return new Promise(resolve => {
 
@@ -227,7 +150,6 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
             console.log(data);
 
             this.votacaoapi(this.pauta_id);
-            this.votoapi();
 
           }else{
             const toast = await this.toastController.create({
@@ -240,6 +162,7 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
           }
           
         });
+        this.router.navigate(['/pautas-home-condomino']);
 
     });
 

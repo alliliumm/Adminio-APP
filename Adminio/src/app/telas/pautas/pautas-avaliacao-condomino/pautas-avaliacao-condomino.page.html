@@ -24,18 +24,20 @@
     <ion-button size="small" color="success" (click)="pautfechadas()">Pautas fechadas</ion-button>
     <ion-button size="small" color="success" (click)="pautasabertas()">Pautas abertas</ion-button>
 
-  <ion-content class="cinza-claro" class="ion-padding">
+    <ion-content class="cinza-claro" class="ion-padding">
 
-    <ion-list>
-        <ion-item-sliding *ngFor="let assunto of pautas">
+      <ion-card *ngFor="let assunto of pautas">
+        <ion-item>
+          <ion-card-content>
+            <h1>{{assunto.assunto}}</h1><br>
+            <h2>ID da pauta: {{assunto.pauta_id}}</h2>
+            <h2>Status: {{assunto.status}}</h2><br>
+            <p> {{assunto.conteudo}}</p><br>
 
-          <ion-item>
-          <ion-label (click)="mostrar(assunto.pauta_id, assunto.assunto, assunto.conteudo, assunto.status, assunto.pautas_sindico_id)">
-            {{assunto.assunto}}</ion-label>
-          </ion-item>
 
-        </ion-item-sliding>
-    </ion-list>
+          </ion-card-content>
+        </ion-item>
+      </ion-card>
 
 
 

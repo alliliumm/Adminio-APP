@@ -131,26 +131,33 @@ else if ($postjson['requisicao'] == 'editstatuscomunicado') {
 
 else if ($postjson['requisicao'] == 'newpaut') {
 
-$query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id");
-
-
-      $query->bindValue(":assunto", $postjson['assunto']);
-      $query->bindValue(":conteudo", $postjson['conteudo']);
-      $query->bindValue(":status", $postjson['status']);
-      $query->bindValue(":pautas_sindico_id", $postjson['pautas_sindico_id']);
-      
-      $query->execute();
-
-      $pautid = $pdo->lastInsertId();
-
-
-      if ($query) {
-        $result = json_encode(array('success' => true, 'pauta_id' => $pautid, 'pagepaut' => true));
-      } else {
-        $result = json_encode(array('success' => false));
-      }
-      echo $result;
-}
+  $query = $pdo->prepare("INSERT INTO pautas SET assunto = :assunto, conteudo =:conteudo, status = :status, pautas_sindico_id = :pautas_sindico_id");
+  
+  
+        $query->bindValue(":assunto", $postjson['assunto']);
+        $query->bindValue(":conteudo", $postjson['conteudo']);
+        $query->bindValue(":status", $postjson['status']);
+        $query->bindValue(":pautas_sindico_id", $postjson['pautas_sindico_id']);
+        
+        $query->execute();
+  
+        $pautid = $pdo->lastInsertId();
+  
+  
+        if ($query) {
+          $result = json_encode(array('success' => true, 'pauta_id' => $pautid, 'pagepaut' => true));
+  
+          $query = $pdo->prepare("INSERT INTO votacao SET cont_votosim = 0, cont_votonao = 0, votacao_pauta_id = :votacao_pauta_id");
+          $query->bindValue(":votacao_pauta_id", $pautid);
+          $query->execute();
+          
+  
+        } else {
+          $result = json_encode(array('success' => false));
+        }
+        echo $result;
+  }
+  
 
 
 /*Excluir pauta . Administrador*/ 

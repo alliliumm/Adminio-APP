@@ -46,55 +46,46 @@ export class PautasAvaliacaoCondominoPage implements OnInit {
     this.router.navigate(['/pautas-home-condomino']);
   }
 
-
-
-  mostrar(pauta_id, assunto, conteudo, status, pautas_sindico_id ){
-    this.router.navigate(['/mostrar-pautas-avaliacao-condomino/' + pauta_id + '/' + assunto + '/' + conteudo + '/' + status + '/' + pautas_sindico_id]);
-  }
-
-
-
-
-  carregaravaliacao(){
+  carregaravaliacao(pauta_id){
     return new Promise(resolve => {
       this.pautas = [];
       let dados = {
         requisicao : 'listaravaliacaopaut',
         assunto : this.assunto,
+        conteudo : this.conteudo,
+        pauta_id : pauta_id,
         status: this.status, 
         limit : this.limit,
         start : this.start
       };
-
+  
         this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
-
+  
         if(data['result'] == '0') {
           this.ionViewWillEnter();
         }else{
           for(let assunto of data['result']){
             this.pautas.push(assunto);
-            
           }
+  
         }
          
          resolve(true);
          
         });
     });
-
   }
-
-
- 
+    
   
+  
+  
+    ionViewWillEnter(){
+      this.pautas = [];
+      this.start = 0;
+      this.carregaravaliacao(this.pauta_id);
+    }
 
 
-
-  ionViewWillEnter(){
-    this.pautas = [];
-    this.start = 0;
-    this.carregaravaliacao();
-  }
 
  //atualizar o list view
 
@@ -113,7 +104,7 @@ loadData(event) {
   this.start += this.limit;
 
   setTimeout(() => {
-    this.carregaravaliacao().then(()=>{ 
+    this.carregaravaliacao(this.pauta_id).then(()=>{ 
       event.target.complete();
      });
    

@@ -60,6 +60,47 @@ else if($postjson['requisicao'] == 'sinalizacao'){
 
 }
 
+/*Votacao*/ 
+
+else if($postjson['requisicao'] == 'vtscomvotacao'){ 
+
+  if($postjson['voto'] == 'sim'){
+
+    $query = $pdo->prepare("UPDATE votacao  SET cont_votosim = cont_votosim + 1 where votacao_pauta_id = '$postjson[votacao_pauta_id]'");
+    $query->execute();
+
+    if($query){
+      $result = json_encode(array('success'=>true));
+      echo "Acertou miseravi";
+        
+    }else{
+      $result = json_encode(array('success'=>false));
+      echo "Errooooo";
+          
+    }
+      echo $result;
+
+  }else{
+    
+    $query = $pdo->prepare("UPDATE votacao  SET cont_votonao = cont_votonao + 1 where votacao_pauta_id = '$postjson[votacao_pauta_id]'");
+    $query->execute();
+
+    if($query){
+      $result = json_encode(array('success'=>true));
+      echo "Acertou miseravi";
+        
+    }else{
+      $result = json_encode(array('success'=>false));
+      echo "Errooooo";
+          
+    }
+      echo $result;
+  
+  }
+        
+
+}
+
 
 
 

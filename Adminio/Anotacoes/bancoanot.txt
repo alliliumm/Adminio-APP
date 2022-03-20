@@ -1,0 +1,25 @@
+
+CREATE TABLE adminbd.comentarios_pauta(
+    comentario_id int (10) AUTO_INCREMENT PRIMARY KEY,
+    comentario varchar (300) not null,
+    pauta_id int,
+    comentarios_pauta_condomino_id int(10)not null,
+    FOREIGN KEY (comentarios_pauta_condomino_id) REFERENCES condominos(condomino_id)
+);
+
+CREATE TABLE adminbd.votos(
+    voto_id int(10) AUTO_INCREMENT PRIMARY KEY,
+    votacao_condomino_id int(10) not null,
+    cont_votosim1 int,
+    cont_votonao1 int,
+    FOREIGN KEY (votacao_condomino_id) REFERENCES condominos(condomino_id)
+);
+
+
+select* from comentarios_pauta;
+select* from votos;
+
+
+drop table adminbd.votos;
+drop table adminbd.comentarios_pauta;
+

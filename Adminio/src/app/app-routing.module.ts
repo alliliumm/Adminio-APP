@@ -11,10 +11,6 @@ const routes: Routes = [
     path: 'folder',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
-  /*{
-    path: 'add-usuario',
-    loadChildren: () => import('./add-usuario/add-usuario.module').then( m => m.AddUsuarioPageModule)
-  },*/
   {
     path: 'mostrar-usuario',
     loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
@@ -22,18 +18,6 @@ const routes: Routes = [
   {
     path: 'mostrar-usuario/:morador_id/:nome/:usuario/:senha/:apartamento/:bloco',
       loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
-  },
-  {
-    path: 'assembleia',
-    loadChildren: () => import('./assembleia/assembleia.module').then( m => m.AssembleiaPageModule)
-  },
-  {
-    path: 'usermsg',
-    loadChildren: () => import('./usermsg/usermsg.module').then( m => m.UsermsgPageModule)
-  },
-  {
-    path: 'resultpage',
-    loadChildren: () => import('./resultpage/resultpage.module').then( m => m.ResultpagePageModule)
   },
   {
     path: 'logins',
@@ -128,16 +112,8 @@ const routes: Routes = [
     loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-sindico/mostrar-pautas-avaliacao-sindico.module').then( m => m.MostrarPautasAvaliacaoSindicoPageModule)
   },
   {
-    path: 'mostrar-pautas-avaliacao-condomino',
-    loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-condomino/mostrar-pautas-avaliacao-condomino.module').then( m => m.MostrarPautasAvaliacaoCondominoPageModule)
-  },
-  {
     path: 'mostrar-pautas-avaliacao-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
     loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-sindico/mostrar-pautas-avaliacao-sindico.module').then( m => m.MostrarPautasAvaliacaoSindicoPageModule)
-  },
-  {
-    path: 'mostrar-pautas-avaliacao-condomino/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
-    loadChildren: () => import('./telas/pautas/mostrar-pautas-avaliacao-condomino/mostrar-pautas-avaliacao-condomino.module').then( m => m.MostrarPautasAvaliacaoCondominoPageModule)
   },
   {
     path: 'edicao-status-resultado-sindico',
@@ -150,6 +126,10 @@ const routes: Routes = [
   {
     path: 'mostrar-pautas-fechadas-sindico/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
     loadChildren: () => import('./telas/pautas/mostrar-pautas-fechadas-sindico/mostrar-pautas-fechadas-sindico.module').then( m => m.MostrarPautasFechadasSindicoPageModule)
+  },
+  {
+    path: 'mostrar-pautas-fechadas-condomino/:pauta_id/:assunto/:conteudo/:status/:pautas_sindico_id',
+    loadChildren: () => import('./telas/pautas/mostrar-pautas-fechadas-condomino/mostrar-pautas-fechadas-condomino.module').then( m => m.MostrarPautasFechadasCondominoPageModule)
   },
   {
     path: 'cadastro-cond',
@@ -252,7 +232,7 @@ const routes: Routes = [
     loadChildren: () => import('./telas/usuarios/mostrar-user-condomino/mostrar-user-condomino.module').then( m => m.MostrarUserCondominoPageModule)
   },
   {
-    path: 'mostrar-user-condomino/:condomino_id/:condnome/:tipo_condomino/:condomino_condominioo_id/:email_cond/:conjunto/:bloco/:andar/:apartamento',
+    path: 'mostrar-user-condomino/:condomino_id/:condnome/:tipo_condomino/:condominos_condominioo_id/:email_cond/:conjunto/:bloco/:andar/:apartamento',
     loadChildren: () => import('./telas/usuarios/mostrar-user-condomino/mostrar-user-condomino.module').then( m => m.MostrarUserCondominoPageModule)
   },
   {

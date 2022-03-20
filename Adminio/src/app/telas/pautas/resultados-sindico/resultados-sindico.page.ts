@@ -1,6 +1,6 @@
 import { HomeSindicoPage } from './../../home-sindico/home-sindico.page';
 import { Post } from 'src/services/post';
-import { Router} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -17,13 +17,25 @@ export class ResultadosSindicoPage implements OnInit {
   pautas : any = [];
   limit : number = 10;
   start : number = 0;
+
+  votacao: any = [];
+  votacao_pauta_id: string="";
+  votacao_id : string ="";
+  cont_votosim : string ="";
+  cont_votonao : string ="";
  
 
-  constructor(private router: Router, private provider: Post) { }
+  constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post) { }
  
 
   ngOnInit() {
 
+    this.actRouter.params.subscribe((data:any)=>{
+    this.votacao_id = data.votacao_id;
+    this.cont_votosim = data.cont_votosim;
+    this.cont_votonao = data.cont_votonao;
+    this.votacao_pauta_id = data.votacao_pauta_id;
+  });
   }
 
   userhome(){
@@ -47,38 +59,37 @@ export class ResultadosSindicoPage implements OnInit {
   }
 
 
+carregarresultados(pauta_id){
+  return new Promise(resolve => {
+    this.pautas = [];
+    let dados = {
+      requisicao : 'listarresultadospaut',
+      assunto : this.assunto,
+      conteudo : this.conteudo,
+      cont_votosim : this.cont_votosim,
+      cont_votonao : this.cont_votosim,
+      pauta_id : pauta_id,
+      status: this.status, 
+      limit : this.limit,
+      start : this.start
+    };
 
-  carregararesultados(){
-    return new Promise(resolve => {
-      this.pautas = [];
-      let dados = {
-        requisicao : 'listarresultadospaut',
-        assunto : this.assunto,
-        status: this.status, 
-        limit : this.limit,
-        start : this.start
-      };
+      this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
 
-        this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
-
-        if(data['result'] == '0') {
-          this.ionViewWillEnter();
-        }else{
-          for(let assunto of data['result']){
-            this.pautas.push(assunto);
-            
-          }
+      if(data['result'] == '0') {
+        this.ionViewWillEnter();
+      }else{
+        for(let assunto of data['result']){
+          this.pautas.push(assunto);
         }
-         
-         resolve(true);
-         
-        });
-    });
 
-  }
-
-
- 
+      }
+       
+       resolve(true);
+       
+      });
+  });
+}
   
 
 
@@ -86,7 +97,7 @@ export class ResultadosSindicoPage implements OnInit {
   ionViewWillEnter(){
     this.pautas = [];
     this.start = 0;
-    this.carregararesultados();
+    this.carregarresultados(this.pauta_id);
   }
 
  //atualizar o list view
@@ -106,7 +117,7 @@ loadData(event) {
   this.start += this.limit;
 
   setTimeout(() => {
-    this.carregararesultados().then(()=>{ 
+    this.carregarresultados(this.pauta_id).then(()=>{ 
       event.target.complete();
      });
    

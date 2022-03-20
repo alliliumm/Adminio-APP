@@ -10,9 +10,9 @@
 </ion-header>
 
 <ion-row class="success padding-lateral">
-  <ion-input placeholder="Buscar" [(ngModel)]="assunto" type="search" (input)="carregar()"></ion-input>
+  <ion-input placeholder="Buscar" [(ngModel)]="assunto" type="search" (input)="carregarresultados(pauta_id)"></ion-input>
 
-  <ion-buttons (click)="carregarresultados()">
+  <ion-buttons (click)="carregarresultados(pauta_id)">
     <ion-button>
       <ion-icon slot="end" name="search"></ion-icon>
     </ion-button>
@@ -23,32 +23,34 @@
 <ion-button size="small" color="success" (click)="pautfechadas()">Pautas Fechadas</ion-button>
 <ion-button size="small" color="success" (click)="pautasabertas()">Pautas Abertas</ion-button>
 
-<ion-content>
-
   <ion-content class="cinza-claro" class="ion-padding">
 
         <ion-card *ngFor="let assunto of pautas">
           <ion-item>
             <ion-card-content>
-              <h2>{{assunto.assunto}}</h2><br>
-              <h2>{{assunto.pauta_id}}</h2><br>
+              <h1>{{assunto.assunto}}</h1><br>
+              <h2>ID da pauta: {{assunto.pauta_id}}</h2><br>
+              <p> {{assunto.conteudo}}</p><br>
 
               <div class="flex_center">
 
                 <ion-button id="flex_center" color="success">
                   <ion-icon slot="start" name="thumbs-up-outline"></ion-icon>
-                  Sim: {{assunto.cont_sim}}
+                  Sim: {{assunto.cont_votosim}}
                 </ion-button>
-
-
+          
+          
                 <ion-button id="flex_center" color="success">
                   <ion-icon slot="start" name="thumbs-down-outline"></ion-icon>
-                  Não: {{assunto.cont_nao}}
-                </ion-button><br>
+                  Não: {{assunto.cont_votonao}}
+                </ion-button><br><br>
 
-                  <ion-button  color="success" (click)="editarstatus(assunto.pauta_id, assunto.assunto, assunto.status, assunto.pautas_sindico_id)">
+                <ion-buttons >
+                  <ion-button color="success" (click)="editarstatus(assunto.pauta_id, assunto.assunto, assunto.status, assunto.pautas_sindico_id)">
                     Mudar Status
                   </ion-button>
+                </ion-buttons> 
+
 
               </div>
 
