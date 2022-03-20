@@ -12,14 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   {
-    path: 'mostrar-usuario',
-    loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
-  },
-  {
-    path: 'mostrar-usuario/:morador_id/:nome/:usuario/:senha/:apartamento/:bloco',
-      loadChildren: () => import('./mostrar-usuario/mostrar-usuario.module').then( m => m.MostrarUsuarioPageModule)
-  },
-  {
     path: 'logins',
     loadChildren: () => import('./telas/logins/logins.module').then( m => m.LoginsPageModule)
   },
@@ -251,6 +243,8 @@ const routes: Routes = [
     path: 'editar-user-sindico/:sindico_id/:nome/:tipo_sindico/:sindico_condominioo_id/:email_sin',
     loadChildren: () => import('./telas/usuarios/editar-user-sindico/editar-user-sindico.module').then( m => m.EditarUserSindicoPageModule)
   },
+
+
 
 
 

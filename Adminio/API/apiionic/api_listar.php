@@ -49,7 +49,35 @@ else if($postjson['requisicao'] == 'listarcondomino'){
 }
 
 
+/*Apresentar Condomínio*/ 
+    
+else if($postjson['requisicao'] == 'apresentarcond'){
+    
+  $query = $pdo->query("SELECT nomecond from condominioo where condominioo_id = '$postjson[condominioo_id]'"); 
 
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+for ($i=0; $i < count($res); $i++) { 
+  foreach ($res[$i] as $key => $value) {
+  }
+  
+ $dados[] = array(
+   'nomecond' => $res[$i]['nomecond']
+
+ );
+
+}
+
+    if(count($res) > 0){
+            $result = json_encode(array('success'=>true, 'result'=>$dados));
+
+        }else{
+            $result = json_encode(array('success'=>false, 'result'=>'0'));
+
+        }
+        echo $result;
+
+}
 
 /*Apresentar Votos*/ 
     

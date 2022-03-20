@@ -9,6 +9,7 @@ import { Post } from 'src/services/post';
 })
 export class MostrarUserCondominoPage implements OnInit {
 
+  condomino_id: string = "";
   condnome: string = "";
   email_cond: string = "";
   tipo_condomino: string = "";
@@ -16,8 +17,7 @@ export class MostrarUserCondominoPage implements OnInit {
   andar: string = "";
   apartamento: string = "";
   bloco: string = "";
-  condomino_id: string = "";
-
+ 
 
   condominioo: any = [];
   condominos_condominioo_id: string="";
@@ -37,6 +37,10 @@ export class MostrarUserCondominoPage implements OnInit {
       this.bloco = data.bloco;
       this.andar = data.andar;
       this.conjunto = data.conjunto;
+
+      this.condominioo_id = data.condominioo_id;
+      this.nomecond = data.nomecond;
+      this.condominos_condominioo_id = data.condominos_condominioo_id;
     });
   }
 
@@ -58,7 +62,7 @@ export class MostrarUserCondominoPage implements OnInit {
       let dados = {
         requisicao : 'apresentarcond',
         nomecond : this.nomecond,
-        condominos_condominioo_id : condominos_condominioo_id
+        condominioo_id : condominos_condominioo_id
 
         };
 

@@ -39,6 +39,7 @@ export class UsuarioHomeListCondominoPage implements OnInit {
     this.router.navigate(['/usuarios-home-sindico']);
   }
 
+
   cadastrocondominos(){
     this.router.navigate(['/cadastro-condomino']);
   }
