@@ -2,7 +2,7 @@ import { HomeSindicoPage } from './../../home-sindico/home-sindico.page';
 import { Post } from 'src/services/post';
 import { Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
+import { MenuController} from '@ionic/angular';
 
 @Component({
   selector: 'app-usuarios-home-sindico',
@@ -21,7 +21,7 @@ export class UsuariosHomeSindicoPage implements OnInit {
   start : number = 0;
  
 
-  constructor(private router: Router, private provider: Post) { }
+  constructor(private router: Router, private provider: Post, private menu: MenuController) { this.menu.enable(false, 'custom');}
  
 
   ngOnInit() {
@@ -39,6 +39,7 @@ export class UsuariosHomeSindicoPage implements OnInit {
   condominos(){
     this.router.navigate(['/usuario-home-list-condomino']);
   }
+
 
 
   mostrarsindico(sindico_id, nome, tipo_sindico, sindico_condominioo_id, email_sin){

@@ -1,9 +1,30 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>mostrar-user-sindico</ion-title>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="Usuarios()">
+      <ion-button>
+        <ion-icon name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Síndico</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card class="cinza-claro" >
+    <ion-card-header>
+      <ion-card-subtitle>
+        <h5>Nome:</h5>
+      </ion-card-subtitle>
+      <ion-card-title>
+        {{nome}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+     <h2>ID do síndico: {{sindico_id}}</h2><br>
+     <h2>Tipo de Síndico: {{tipo_sindico}}</h2><br>
+     <h2>E-mail: {{email_sin}}</h2><br>
+     <h2  *ngFor="let nomecond of condominioo">Condomínio: {{nomecond.nomecond}}</h2><br>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+

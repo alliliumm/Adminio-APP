@@ -17,6 +17,11 @@ export class MostrarPautasSindicoPage implements OnInit {
   pautas_sindico_id: string="";
   pauta_id : string ="";
 
+  votacao: any = [];
+  votacao_pauta_id: string="";
+  votacao_id : string ="";
+  cont_votosim : string ="";
+  cont_votonao : string ="";
 
 
 constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post, public toastController: ToastController) { }
@@ -29,6 +34,11 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
       this.conteudo = data.conteudo;
       this.status = data.status;
       this.pautas_sindico_id = data.pautas_sindico_id;
+
+      this.votacao_id = data.votacao_id;
+      this.cont_votosim = data.cont_votosim;
+      this.cont_votonao = data.cont_votonao;
+      this.votacao_pauta_id = data.votacao_pauta_id;
 
     });
   }
@@ -53,6 +63,42 @@ constructor(private actRouter: ActivatedRoute, private router: Router, private p
         });
         this.router.navigate(['/pautas-home-sindico']);
     });
+  }
+
+
+  ionViewWillEnter(){
+    this.votacao = [];
+    this.carregar(this.pauta_id);
+  }
+
+
+  carregar(pauta_id){
+    return new Promise(resolve => {
+      this.votacao = [];
+      let dados = {
+        requisicao : 'apresentarvotos',
+        cont_votosim : this.cont_votosim,
+        cont_votonao : this.cont_votonao,
+        pauta_id : pauta_id
+
+        };
+
+        this.provider.dadosApi(dados, 'api_listar.php').subscribe(data => {
+
+        if(data['result'] == '0') {
+          this.ionViewWillEnter();
+        }else{
+          for(let voto of data['result']){
+            this.votacao.push(voto);
+            
+          }
+        }
+         
+         resolve(true);
+         
+        });
+    });
+    
   }
 
  

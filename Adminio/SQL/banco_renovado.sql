@@ -1,5 +1,7 @@
 CREATE DATABASE adminbd;
 
+USE adminbd;
+
 CREATE TABLE adminbd.enderecos(
     endereco_id int(10) AUTO_INCREMENT PRIMARY KEY,
     rua varchar(300) not null,
@@ -72,6 +74,7 @@ CREATE TABLE adminbd.pautas(
     FOREIGN KEY (pautas_sindico_id) REFERENCES sindicos(sindico_id)
 );
 
+
 CREATE TABLE adminbd.votacao(
     votacao_id int(10) AUTO_INCREMENT PRIMARY KEY,
     votacao_pauta_id int(10) not null,
@@ -114,6 +117,28 @@ select* from votacao;
 
 
 
+
+
+
+
+UPDATE comunicados SET cont_sinalizacoes = cont_sinalizacoes + 1 where comunicado_id = 9;
+
+
+
+
+
+select pauta_id, assunto, conteudo, status, pautas_sindico_id,cont_votosim, cont_votonao from pautas inner join votacao on pautas.pauta_id = votacao.votacao_pauta_id;
+
+SELECT cont_votosim, cont_votonao from votacao where votacao_pauta_id = 6;
+
+SELECT cont_votosim, cont_votonao from votacao;
+
+
+
+
+
+
+
 drop database adminbd;
 
 drop table condominioo;
@@ -127,30 +152,11 @@ drop table votacao;
 drop table adminbd.votos;
 
 
+DELETE FROM comunicados where comunicado_id = 2;
+DELETE FROM pautas where pauta_id = 4; 
+DELETE FROM votacao where votacao_id = 4 and votacao_pauta_id = 4; 
 
 
 
 
-CREATE TABLE adminbd.comentarios_pauta(
-    comentario_id int (10) AUTO_INCREMENT PRIMARY KEY,
-    comentario varchar (300) not null,
-    pauta_id int,
-    comentarios_pauta_condomino_id int(10)not null,
-    FOREIGN KEY (comentarios_pauta_condomino_id) REFERENCES condominos(condomino_id)
-);
 
-CREATE TABLE adminbd.votos(
-    voto_id int(10) AUTO_INCREMENT PRIMARY KEY,
-    votacao_condomino_id int(10) not null,
-    cont_votosim1 int,
-    cont_votonao1 int,
-    FOREIGN KEY (votacao_condomino_id) REFERENCES condominos(condomino_id)
-);
-
-
-select* from comentarios_pauta;
-select* from votos;
-
-
-drop table adminbd.votos;
-drop table adminbd.comentarios_pauta;

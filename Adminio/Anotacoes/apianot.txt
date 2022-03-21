@@ -1,0 +1,78 @@
+
+
+/*Inserir linha da tabela de votacao*/
+
+else if($postjson['requisicao'] == 'inserirnumbersdevota'){
+
+  $query = $pdo->prepare("INSERT INTO votacao SET cont_votosim = 0, cont_votonao = 0");
+  $query->execute();
+  
+  $votaid = $pdo->lastInsertId();
+  
+  if($query){
+    $result = json_encode(array('success'=>true,'votacao_id'=>$votaid));
+    echo "inserido";
+    }else{
+      $result = json_encode(array('success'=>false));
+    echo "Errooooo";
+    }
+    
+    echo $result;
+  
+  }
+  
+
+
+  
+
+
+
+
+
+/*Votacao*/ 
+
+else if($postjson['requisicao'] == 'vtscomvotacao'){ 
+
+  if($postjson['voto'] == 'sim'){
+
+    $votaid = $pdo->lastInsertId();
+
+    $query = $pdo->prepare("UPDATE votacao  SET cont_votosim = cont_votosim + 1, votacao_pauta_id = :votacao_pauta_id where (SELECT * from pautas where pauta_id LIKE '$postjson[pauta_id]') = '$postjson[pauta_id]' and votacao_id = '$votaid'");
+    
+    $query->bindValue(":votacao_pauta_id", $postjson['votacao_pauta_id']);
+    $query->execute();
+
+    if($query){
+      $result = json_encode(array('success'=>true));
+      echo "Acertou miseravi";
+        
+    }else{
+      $result = json_encode(array('success'=>false));
+      echo "Errooooo";
+          
+    }
+      echo $result;
+
+  }else{
+    $votaid = $pdo->lastInsertId();
+
+    $query = $pdo->prepare("UPDATE votacao  SET cont_votonao = cont_votonao + 1, votacao_pauta_id = :votacao_pauta_id where (SELECT * from pautas where pauta_id LIKE '$postjson[pauta_id]') = '$postjson[pauta_id]' and votacao_id = '$votaid'");
+   
+    $query->bindValue(":votacao_pauta_id", $postjson['votacao_pauta_id']);
+    $query->execute();
+
+    if($query){
+      $result = json_encode(array('success'=>true));
+      echo "Acertou miseravi";
+        
+    }else{
+      $result = json_encode(array('success'=>false));
+      echo "Errooooo";
+          
+    }
+      echo $result;
+  
+  }
+        
+
+}

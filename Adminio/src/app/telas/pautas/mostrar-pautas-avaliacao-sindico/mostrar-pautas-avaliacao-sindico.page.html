@@ -25,17 +25,17 @@
      
      <div class="flex_center">
 
-      <ion-button id ="flex_center" color="success">
-            <ion-icon slot="start" name="thumbs-up-outline"></ion-icon>
-            Sim: 
+      <ion-button id="flex_center" color="success" *ngFor="let voto of votacao">
+        <ion-icon slot="start" name="thumbs-up-outline"></ion-icon>
+        Sim:{{voto.cont_votosim}}
       </ion-button>
 
-    
-    <ion-button  id ="flex_center" color="success">
+
+      <ion-button id="flex_center" color="success" *ngFor="let voto of votacao">
         <ion-icon slot="start" name="thumbs-down-outline"></ion-icon>
-            Não: 
-    </ion-button>
-  </div>
+        Não:{{voto.cont_votonao}}
+      </ion-button>
+    </div>
 
     </ion-card-content>
   </ion-card>

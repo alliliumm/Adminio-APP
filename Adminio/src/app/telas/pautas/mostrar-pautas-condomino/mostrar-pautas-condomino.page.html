@@ -26,11 +26,24 @@
   </ion-card>
 
   <ion-item>
-    <ion-label>Vote:</ion-label>
-    <ion-select placeholder="Selecione" [(ngModel)]="voto" (ionChange)="segmentChangedd($event)" name="voto">
-      <ion-select-option value="sim">Sim</ion-select-option>
-      <ion-select-option value="nao">Não</ion-select-option>
-    </ion-select>
+    <ion-label>Vote em uma opção:</ion-label>
+    <ion-radio-group [(ngModel)]="voto" (ionChange)="segmentChangedd($event)" name="voto">
+      <ion-item>
+        <ion-label>
+          Sim
+          <ion-icon slot="start" name="thumbs-up-outline"></ion-icon>
+        </ion-label>
+        <ion-radio slot="end" value="sim" color="success"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          Não
+          <ion-icon slot="start" name="thumbs-down-outline"></ion-icon>
+        </ion-label>
+        <ion-radio slot="end" value="nao" color="success"></ion-radio>
+      </ion-item>
+    </ion-radio-group><br>
   </ion-item>
 
   <ion-item >

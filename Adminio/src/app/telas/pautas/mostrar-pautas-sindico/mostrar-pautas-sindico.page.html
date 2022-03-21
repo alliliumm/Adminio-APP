@@ -2,7 +2,7 @@
   <ion-toolbar color="success">
     <ion-buttons slot="start" (click)="pautlist()">
       <ion-button>
-        <ion-icon  name="arrow-back"> </ion-icon>
+        <ion-icon name="arrow-back"> </ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Pauta</ion-title>
@@ -21,27 +21,29 @@
       <h6>ID da pauta:{{pauta_id}}</h6>
     </ion-card-header>
     <ion-card-content>
-     <h2>{{conteudo}}</h2><br>
-     
-     <div class="flex_center">
+      <h2>{{conteudo}}</h2><br>
 
-      <ion-button id ="flex_center" color="success">
+        <div class="flex_center">
+
+          <ion-button id="flex_center" color="success" *ngFor="let voto of votacao">
             <ion-icon slot="start" name="thumbs-up-outline"></ion-icon>
-            Sim: 
-      </ion-button>
+            Sim:{{voto.cont_votosim}}
+          </ion-button>
 
-    
-    <ion-button  id ="flex_center" color="success">
-        <ion-icon slot="start" name="thumbs-down-outline"></ion-icon>
-            Não: 
-    </ion-button>
-  </div>
+
+          <ion-button id="flex_center" color="success" *ngFor="let voto of votacao">
+            <ion-icon slot="start" name="thumbs-down-outline"></ion-icon>
+            Não:{{voto.cont_votonao}}
+          </ion-button>
+        </div>
+      
 
     </ion-card-content>
   </ion-card>
 
   <div>
-    <ion-button id="admbutton1" expand="block" color="success" (click)="enviareditsin(pauta_id, assunto, conteudo, status, pautas_sindico_id)">
+    <ion-button id="admbutton1" expand="block" color="success"
+      (click)="enviareditsin(pauta_id, assunto, conteudo, status, pautas_sindico_id)">
       Editar
     </ion-button>
   </div>
@@ -52,4 +54,4 @@
     </ion-button>
   </div>
 
-  </ion-content>
+</ion-content>

@@ -2,6 +2,7 @@ import { HomeSindicoPage } from './../../home-sindico/home-sindico.page';
 import { Post } from 'src/services/post';
 import { Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-comunicados-home-sindico',
@@ -23,7 +24,7 @@ export class ComunicadosHomeSindicoPage implements OnInit {
   start : number = 0;
  
 
-  constructor(private router: Router, private provider: Post) { }
+  constructor(private router: Router, private provider: Post, private menu: MenuController) { this.menu.enable(false, 'custom');}
  
 
   ngOnInit() {

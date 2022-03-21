@@ -39,16 +39,17 @@ export class UsuarioHomeListCondominoPage implements OnInit {
     this.router.navigate(['/usuarios-home-sindico']);
   }
 
+
   cadastrocondominos(){
     this.router.navigate(['/cadastro-condomino']);
   }
 
-  mostrarcond(condomino_id, condnome, tipo_condomino, condomino_condominioo_id, email_cond, conjunto, bloco, andar, apartamento){
-    this.router.navigate(['/mostrar-user-condomino/' + condomino_id + '/' + condnome + '/' + tipo_condomino + '/' + condomino_condominioo_id + '/' + email_cond + '/' + conjunto + '/' + bloco + '/' + andar + '/' + apartamento]);
+  mostrarcond(condomino_id, condnome, tipo_condomino, condominos_condominioo_id, email_cond, conjunto, bloco, andar, apartamento){
+    this.router.navigate(['/mostrar-user-condomino/' + condomino_id + '/' + condnome + '/' + tipo_condomino + '/' + condominos_condominioo_id + '/' + email_cond + '/' + conjunto + '/' + bloco + '/' + andar + '/' + apartamento]);
   }
 
-  editarcond(condomino_id, condnome, tipo_condomino, condomino_condominioo_id, email_cond, conjunto, bloco, andar, apartamento){
-    this.router.navigate(['/editar-user-condomino/' + condomino_id + '/' + condnome + '/' + tipo_condomino + '/' + condomino_condominioo_id + '/' + email_cond + '/' + conjunto + '/' + bloco + '/' + andar + '/' + apartamento]);
+  editarcond(condomino_id, condnome, tipo_condomino, condominos_condominioo_id, email_cond, conjunto, bloco, andar, apartamento){
+    this.router.navigate(['/editar-user-condomino/' + condomino_id + '/' + condnome + '/' + tipo_condomino + '/' + condominos_condominioo_id + '/' + email_cond + '/' + conjunto + '/' + bloco + '/' + andar + '/' + apartamento]);
   }
 
 
