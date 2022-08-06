@@ -5,13 +5,15 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class Post{
-    server: string = 'http://grupoadminio.tk/apiionic/';
+    // server: string = 'http://grupoadminio.tk/apiionic/';
+
+    server: string = 'http://localhost/apiionic/';
 
     constructor(private http : HttpClient){
 
     }
-       
-     dadosApi(dados: any, api: string){
+
+    dadosApi(dados: any, api: string){
             const httpOptions = {
                 headers: new HttpHeaders({'Content-Type' : 'application/json'})
                 }
