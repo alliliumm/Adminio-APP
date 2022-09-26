@@ -10,8 +10,11 @@ header('Content-Type: application/json; charset=utf-8');
 
 $banco = 'adminbd';
 $host = 'localhost';
-$usuario = 'root';
-$senha = '';
+$usuario = 'alessandra';
+$senha = 'ABCabc@123';
+
+// $usuario = 'root';
+// $senha = '';
 
 try {
     $pdo = new PDO("mysql:dbname=$banco;host=$host","$usuario","$senha");
